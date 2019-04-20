@@ -1,0 +1,40 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 18px;
+    color: #0D3379;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #f3f3f3;
+}
+
+ul, ol {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    font-size: inherit;
+    color: inherit; 
+    font-weight: bold;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    width: 100%;
+    max-width: 1100px;
+    min-width: 320px;
+    margin: 0 auto;
+    padding: 0 20px;
+}

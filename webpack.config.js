@@ -7,9 +7,9 @@ const config = {
     './src/scss/index.scss'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, '/dist'),
     filename: '[name].js',
-    publicPath: '/dist'
+    publicPath: '/dist/'
   },
   devServer: {
     overlay: true,
@@ -22,8 +22,7 @@ const config = {
         exclude: [/node_modules/],
       },
       {
-        test: /\.scss$/,
-     
+        test: /\.scss$/,     
         use: ExtractTextPlugin.extract({
           use: ['css-loader', 'sass-loader'],
         })

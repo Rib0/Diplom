@@ -4,7 +4,7 @@
   "description": "diplom",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --mode development --open",
+    "dev": "webpack-dev-server --mode development",
     "build": "webpack --mode production"
   },
   "author": "Nikita Vpr42",

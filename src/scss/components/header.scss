@@ -1,0 +1,168 @@
+@include block('header') {
+  height: 650px;
+  background: url('/assets/images/sochi-2258855@1X.png') no-repeat left bottom;
+  background-size: cover;
+  box-sizing: border-box;
+  padding-top: 40px;
+
+  @include element('slogan') {
+    font-size: 3.5rem;
+    text-align: center;
+    margin: 10px;
+
+    @include modif('large') {
+        font-size: 7rem;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+  }
+
+  @include element('logo') {
+    margin-top: 30px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
+  }  
+  
+  @include element('choose') {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    padding: 0;
+    border: 0;
+    background: 0;
+    width: 205px;
+    background: #33c7fd;
+    color: white;
+    padding: 15px 0;
+    font-size: inherit;
+    cursor: pointer;
+    margin-bottom: 15px;
+  
+    &:active {
+      width: 207px;
+      padding: 16px 0;
+      margin-bottom: 13px;
+    }
+  }
+  
+  @include element('figure') {
+    margin-left: 50%;
+    height: 210px;
+    overflow: hidden;
+    transform: translateX(-50%);    
+    display: inline-block;
+  }
+}
+
+@include block('settings') {
+  display: flex;
+  justify-content: flex-end;
+
+  @include element('item') {
+    margin-left: 50px;
+    cursor: pointer;
+
+    & .active {
+      transform: rotate(180deg);
+    }
+
+    &:first-child {
+      position: relative;
+      user-select: none;
+
+      &:hover {
+        & > img:first-of-type {
+          transition: transform .5s;
+          transform: scale(1.5)
+        }
+      }
+    }
+
+    & > p {
+      margin: 0;
+    }
+  }
+
+  @include element('chevron') {
+    margin-left: 10px;
+    margin-bottom: 2px;
+  }
+
+  @include element('user') {
+    margin-right: 10px;
+  }
+}
+
+@include block('modal-auth') {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 45px;
+  display: none;
+  flex-direction: column;
+  z-index: 10;
+
+  & > input {
+    padding: 3px 5px;
+    border-radius: 5px;
+    border: none;
+
+    &:first-child {
+      margin-bottom: 8px;
+    }
+  }
+
+  &--active {
+    display: flex;
+  }
+
+  @include element('actions') {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  @include element('button') {
+    color: white;
+    font-weight: bold;
+    background: rgb(51,199,253);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
+
+@include block('menu') {
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+
+  @include element('item') {
+    position: relative;
+
+    &:hover {
+      &:not(:last-child):after {
+        transform: rotate(720deg);
+        transition: transform 1s;
+      }
+    } 
+
+    &:not(:last-child):after {
+      content: "|";
+      position: absolute;
+      right: 0;
+      top: 10px;
+    }
+  }
+
+  @include element('item-link') {
+    display: block;
+    padding: 10px 30px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
