@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import cx from 'classnames';  
-
+import cx from 'classnames'; 
+import Button from './scrollButton';
+import { Link } from 'react-router-dom';
+  
 export default class Header extends Component {
 
   state = {
@@ -8,7 +10,8 @@ export default class Header extends Component {
   }
 
   onClick = e => {
-    if (e.target.tagName !== 'LI') return;
+    const { tagName } = e.target;
+    if (tagName !== 'LI' && tagName !== 'IMG') return;
     const { activeModal } = this.state;
     this.setState({
       activeModal: !activeModal
@@ -60,10 +63,10 @@ export default class Header extends Component {
           <nav>
             <ul className="menu">
               <li className="menu__item">
-                <a className="menu__item-link" href="#">Главная</a>
+                <Link to='/' className="menu__item-link">Главная</Link>
               </li>
               <li className="menu__item">
-                <a className="menu__item-link" href="#">О компании</a>
+                <Link to='/about' className="menu__item-link">О компании</Link>
               </li>
               <li className="menu__item">
                 <a className="menu__item-link" href="#">Галерея</a>
@@ -83,7 +86,7 @@ export default class Header extends Component {
             <p className="header__slogan">Морские прогулки</p>
             <p className="header__slogan--large">По черному морю</p>
           </div>
-          <button className="header__choose" id="scroll-button">Выбрать круиз</button>
+          <Button />
           <div className="header__figure">
             <img src="../assets/images/Фигура 1@1X (1).png" alt="figure" />
           </div>

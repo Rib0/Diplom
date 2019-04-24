@@ -1,8 +1,245 @@
-.block {
-  border: 1px solid red; }
+@charset "UTF-8";
+* {
+  box-sizing: border-box; }
 
-.wrapper {
-  height: 300px;
-  border: 1px solid black; }
+html {
+  font-size: 18px;
+  color: #0D3379; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #f3f3f3; }
+
+ul, ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
+
+p {
+  margin: 0; }
+
+a {
+  text-decoration: none;
+  font-size: inherit;
+  color: inherit;
+  font-weight: bold; }
+
+img {
+  max-width: 100%;
+  height: auto; }
+
+.container, .container--blocks {
+  width: 100%;
+  max-width: 1100px;
+  min-width: 320px;
+  margin: 0 auto;
+  padding: 0 20px; }
+  .container--blocks {
+    padding: 145px 20px 50px 20px; }
+
+.header {
+  height: 650px;
+  background: url("/assets/images/sochi-2258855@1X.png") no-repeat left bottom;
+  background-size: cover;
+  box-sizing: border-box;
+  padding-top: 40px; }
+  .header__slogan, .header__slogan--large, .catalog-header {
+    font-size: 3.5rem;
+    text-align: center;
+    margin: 10px; }
+    .header__slogan--large {
+      font-size: 7rem;
+      margin-bottom: 15px;
+      text-align: center; }
+  .header__logo {
+    margin-top: 30px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    display: inline-block; }
+  .header__figure {
+    margin-left: 50%;
+    height: 210px;
+    overflow: hidden;
+    transform: translateX(-50%);
+    display: inline-block; }
+
+.button-blue {
+  margin-left: 50%;
+  transform: translateX(-50%);
+  border: 0;
+  background: 0;
+  width: 205px;
+  background: #33c7fd;
+  color: white;
+  padding: 15px 0;
+  font-size: inherit;
+  cursor: pointer;
+  margin-bottom: 15px; }
+  .button-blue:active {
+    width: 207px;
+    padding: 16px 0;
+    margin-bottom: 13px; }
+
+.settings {
+  display: flex;
+  justify-content: flex-end; }
+  .settings__item {
+    margin-left: 50px;
+    cursor: pointer; }
+    .settings__item .active {
+      transform: rotate(180deg); }
+    .settings__item:first-child {
+      position: relative;
+      user-select: none; }
+      .settings__item:first-child:hover > img:first-of-type {
+        transition: transform .5s;
+        transform: scale(1.5); }
+  .settings__chevron {
+    margin-left: 10px;
+    margin-bottom: 2px; }
+  .settings__user {
+    margin-right: 10px; }
+
+.modal-auth, .modal-auth--active {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 45px;
+  display: none;
+  flex-direction: column;
+  z-index: 10; }
+  .modal-auth > input, .modal-auth--active > input {
+    padding: 3px 5px;
+    border-radius: 5px;
+    border: none; }
+    .modal-auth > input:first-child, .modal-auth--active > input:first-child {
+      margin-bottom: 8px; }
+  .modal-auth--active {
+    display: flex; }
+  .modal-auth__actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px; }
+  .modal-auth__button {
+    color: white;
+    font-weight: bold;
+    background: #33c7fd;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer; }
+
+.menu {
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px; }
+  .menu__item {
+    position: relative; }
+    .menu__item:hover:not(:last-child):after {
+      transform: rotate(720deg);
+      transition: transform 1s; }
+    .menu__item:not(:last-child):after {
+      content: "|";
+      position: absolute;
+      right: 0;
+      top: 10px; }
+  .menu__item-link {
+    display: block;
+    padding: 10px 30px; }
+    .menu__item-link:hover {
+      text-decoration: underline; }
+
+.sort {
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 50%;
+  transform: translateX(-50%); }
+
+.containers {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 40px;
+  margin: 0 -10px;
+  position: relative; }
+
+.block-container {
+  flex: 0 0 50%;
+  max-width: 50%;
+  box-sizing: border-box;
+  padding: 0 10px;
+  margin-bottom: 20px;
+  transition: top 1s, left 1s; }
+
+.block {
+  background: white;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column; }
+  .block__image-container {
+    height: 170px; }
+    .block__image-container img {
+      width: 100%;
+      height: 100%;
+      cursor: pointer; }
+  .block__info {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; }
+  .block__name {
+    color: #00a2dd;
+    margin-bottom: 20px;
+    font-size: 1.3rem; }
+  .block__road {
+    font-size: 1.1rem;
+    margin-bottom: 7px;
+    flex-grow: 1; }
+  .block__time {
+    margin-bottom: 20px; }
+  .block__price {
+    font-size: 2rem; }
+  .block__old-price {
+    text-decoration: line-through;
+    color: #9ba4ad;
+    font-size: 1.5rem;
+    margin-left: 20px; }
+
+.chevron {
+  margin: 0 0 1px 5px; }
+
+.footer {
+  background: white;
+  padding: 40px 0 30px 0; }
+  .footer__inner {
+    display: flex; }
+
+.footer-menu {
+  flex: 0 0 30%;
+  max-width: 30%; }
+  .footer-menu a:hover {
+    text-decoration: underline; }
+
+.footer-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1; }
+  .footer-contacts__item {
+    padding: 0 2px; }
+  .footer-contacts__link {
+    background: #0d3351;
+    display: block;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px; }
+    .footer-contacts__link:hover {
+      background: black; }
+  .footer-contacts:before {
+    content: 'Будь на связи: ';
+    flex: 0 0 100%; }
 
 /*# sourceMappingURL=styles.css.map*/

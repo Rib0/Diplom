@@ -13,6 +13,7 @@ const config = {
   },
   devServer: {
     overlay: true,
+    historyApiFallback: true
   },
   module: {
     rules: [
