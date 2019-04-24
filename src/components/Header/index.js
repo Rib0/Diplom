@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import cx from 'classnames'; 
 import Button from './scrollButton';
 import { Link } from 'react-router-dom';
@@ -20,6 +20,7 @@ export default class Header extends Component {
 
   render () {
     const { activeModal } = this.state;
+    const { location: { pathname } } = this.props;
     
     const modalAuthClassName = cx({
       'modal-auth': true,
@@ -69,13 +70,13 @@ export default class Header extends Component {
                 <Link to='/about' className="menu__item-link">О компании</Link>
               </li>
               <li className="menu__item">
-                <a className="menu__item-link" href="#">Галерея</a>
+                <Link to='/gallery' className="menu__item-link">Галерея</Link>
               </li>
               <li className="menu__item">
-                <a className="menu__item-link" href="#">Информация</a>
+                <Link to='/info' className="menu__item-link" href="#">Информация</Link>
               </li>
               <li className="menu__item">
-                <a className="menu__item-link" href="#">Как доехать</a>
+                <Link to='/howtojoin' className="menu__item-link" href="#">Как доехать</Link>
               </li>
             </ul>
           </nav>
@@ -86,10 +87,14 @@ export default class Header extends Component {
             <p className="header__slogan">Морские прогулки</p>
             <p className="header__slogan--large">По черному морю</p>
           </div>
-          <Button />
-          <div className="header__figure">
-            <img src="../assets/images/Фигура 1@1X (1).png" alt="figure" />
-          </div>
+          {pathname === '/' && (
+            <Fragment>
+              <Button />
+                <div className="header__figure">
+                <img src="../assets/images/Фигура 1@1X (1).png" alt="figure" />
+              </div>
+            </Fragment>
+          )}
         </div>
       </header>
     )

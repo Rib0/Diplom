@@ -18,7 +18,7 @@ export default class Button extends Component {
   render () {
     return (
       <button 
-        className="button-blue" 
+        className='button-blue' 
         data-target='scroll-target'
         onClick={this.onClick}
       >

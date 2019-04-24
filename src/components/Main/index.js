@@ -1,12 +1,59 @@
 import React, { Component } from 'react';
-import { items } from './data.json';
+import { items } from 'data/goods';
+import cx from 'classnames';
 
 export default class Main extends Component {
+
+  state = {
+    isHiddenBlocks: true,
+    isSorted: false,
+    isSorting: false,
+    items,
+    sortedItems: [...items].sort((a, b) => a.price - b.price)
+  }
+
+  show = () => {
+    const { isHiddenBlocks } = this.state;
+    this.setState({
+      isHiddenBlocks: !isHiddenBlocks
+    })
+  }
+
+  sort = () => {
+    const { isSorted, isSorting } = this.state;
+    if (isSorting) return;
+    this.setState(
+      () => ({
+        isSorting: true
+      }),
+      () => (
+        setTimeout(() => {
+          this.setState({
+            isSorted: !isSorted,
+            isSorting: false
+          })
+        }, 500)
+      )
+    )
+  }
+
   render () {
+    const { isHiddenBlocks, isSorted, isSorting, items, sortedItems } = this.state;
+    const hiddenBlockClassName = cx({
+      'block-container--hidden': isHiddenBlocks,
+    })
+
+    const defaultClassName = cx({
+      'block-container': true,
+      'block-container--sorting': isSorting
+    })
+
+    const currentItems = isSorted ? sortedItems : items;
+
     return (
       <main className="container container--blocks">
         <p className="catalog-header text-center" id="scroll-target">Каталог круизов</p>
-        <p className="sort">
+        <p className="sort" onClick={this.sort}>
             Сортировать круизы по цене
             <img className="chevron" src="../assets/images/Многоугольник 1 копия 2@1X.png" alt="chevron" />
         </p>
@@ -20,40 +67,40 @@ export default class Main extends Component {
             </div>
         </div>  
         <div className="containers">
-          {items.map(item => (
-            <div className="block-container" data-price={item.price} key={item.id}>
+          {currentItems.map((item, index) => (
+            <div className={`${defaultClassName} ${index > 3 && hiddenBlockClassName}`} data-price={item.price} key={item.id}>
               <div className="block">
                   <div className="block__image-container">
-                      <img className="popUp" src={`../assets/images/${item.img}`} />
+                    <img className="popUp" src={`../assets/images/${item.img}`} />
                   </div>
                   <div className="block__info">
-                      <p className="block__name">
-                        {item.name}
-                        <img className="chevron-right" src="../assets/images/Многоугольник 1 копия 3@1X.png" alt="chevron" />
-                      </p>
-                      <p className="block__road">
-                        <b>Маршрут: </b>
-                        {item.road}
-                      </p>
-                      <p className="block__time">
-                        <b>Продолжительность: </b>
-                        {item.duration} ч.
-                      </p>
-                      <p className="block__price">
-                        {item.price} руб.
-                        {item.old_price && (
-                          <span className="block__old-price">
-                            {item.price} руб.
-                          </span>
-                        )}
-                      </p>
-                  </div>
+                    <p className="block__name">
+                      {item.name}
+                      <img className="chevron-right" src="../assets/images/Многоугольник 1 копия 3@1X.png" alt="chevron" />
+                    </p>
+                    <p className="block__road">
+                      <b>Маршрут: </b>
+                      {item.road}
+                    </p>
+                    <p className="block__time">
+                      <b>Продолжительность: </b>
+                      {item.duration} ч.
+                    </p>
+                    <p className="block__price">
+                      {item.price} руб.
+                      {item.old_price && (
+                        <span className="block__old-price">
+                          {item.price} руб.
+                        </span>
+                      )}
+                    </p>
+                </div>
               </div>
             </div>
           ))}
-          <button className="button-blue">
-              Больше круизов
-              <img className="chevron" src="../assets/images/Многоугольник 1 копия 5@1X.png" alt="chevron" />
+          <button className="button-blue" onClick={this.show}>
+            Больше круизов
+            <img className="chevron" src="../assets/images/Многоугольник 1 копия 5@1X.png" alt="chevron" />
           </button>
         </div>
       </main>

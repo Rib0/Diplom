@@ -31,7 +31,7 @@ const config = {
     ]
   },
   resolve: {
-    extensions: ['.scss', '.js'],
+    extensions: ['.scss', '.js', '.json'],
     modules: ['node_modules', 'src'],
   },
   devtool: 'source-map',

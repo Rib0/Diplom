@@ -45,4 +45,20 @@ img {
   @include modif('blocks') {
     padding: 145px 20px 50px 20px;
   }
+
+  @include modif('content') {
+    padding: 40px 0;
+  }
+}
+
+@include block('containers') {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 40px;
+  margin: 0 -10px;
+  position: relative;
+}
+
+.text-center {
+  text-align: center;
 }
