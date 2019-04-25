@@ -1,5 +1,5 @@
 const path = require('path');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const config = {
   entry: [
@@ -9,11 +9,12 @@ const config = {
   output: {
     path: path.join(__dirname, '/dist'),
     filename: '[name].js',
-    publicPath: '/dist/'
+    publicPath: '/dist'
   },
   devServer: {
     overlay: true,
-    historyApiFallback: true
+    historyApiFallback: true,
+    port: 3000,
   },
   module: {
     rules: [
@@ -23,20 +24,35 @@ const config = {
         exclude: [/node_modules/],
       },
       {
-        test: /\.scss$/,     
-        use: ExtractTextPlugin.extract({
-          use: ['css-loader', 'sass-loader'],
-        })
+        test: /\.(css|scss)$/,     
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+              loader: 'css-loader',
+              options: {
+                // modules: true,
+                // localIdentName: '[local]___[hash:base64:5]', //to read about it
+                // sourceMap: true,
+                // importLoaders: 2, // to read about it
+                // url: false
+              }
+          },
+          'sass-loader',
+        ]
       }
     ]
   },
   resolve: {
     extensions: ['.scss', '.js', '.json'],
-    modules: ['node_modules', 'src'],
+    modules: ['node_modules', path.join(__dirname, 'src')],
   },
   devtool: 'source-map',
   plugins: [
-    new ExtractTextPlugin('styles.css')
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      allChunks: true, // to read about it
+      // chunkFilename: '[id].[hash].css', // to read about it
+    }),
   ]
 }
 

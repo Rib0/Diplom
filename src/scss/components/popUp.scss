@@ -1,0 +1,36 @@
+@include block('register-popUp') {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  text-align: center;
+  z-index: 99;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 10px 10px 10px black;
+  padding: 15px 0 30px 0;
+  background: linear-gradient(to right, white,#33c7fd);
+
+  & > input {
+    width: 80%;
+    border-radius: 5px;
+    border: 1px solid black;
+    box-shadow: 0 0 2px black;
+    height: 40px;
+    padding: 0 10px;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+}
+
+@include block('shadowField') {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: .3;
+  background: black;
+  z-index: 98;
+}

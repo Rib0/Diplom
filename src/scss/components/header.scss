@@ -78,11 +78,6 @@
     }
   }
 
-  @include element('chevron') {
-    margin-left: 10px;
-    margin-bottom: 2px;
-  }
-
   @include element('user') {
     margin-right: 10px;
   }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { items } from 'data/goods';
 import cx from 'classnames';
 
 export default class Main extends Component {
@@ -8,8 +7,6 @@ export default class Main extends Component {
     isHiddenBlocks: true,
     isSorted: false,
     isSorting: false,
-    items,
-    sortedItems: [...items].sort((a, b) => a.price - b.price)
   }
 
   show = () => {
@@ -29,8 +26,8 @@ export default class Main extends Component {
       () => (
         setTimeout(() => {
           this.setState({
+            isSorting: false,
             isSorted: !isSorted,
-            isSorting: false
           })
         }, 500)
       )
@@ -38,26 +35,30 @@ export default class Main extends Component {
   }
 
   render () {
-    const { isHiddenBlocks, isSorted, isSorting, items, sortedItems } = this.state;
+    const { isHiddenBlocks, isSorted, isSorting } = this.state;
+    const { products } = this.props;
+    const sortedProducts = [...products].sort((a, b) => a.price - b.price);
+    const currentProducts = isSorted ? sortedProducts : products;
+
     const hiddenBlockClassName = cx({
       'block-container--hidden': isHiddenBlocks,
     })
-
     const defaultClassName = cx({
       'block-container': true,
       'block-container--sorting': isSorting
     })
-
-    const currentItems = isSorted ? sortedItems : items;
-
+    
     return (
       <main className="container container--blocks">
+      <ul>
+        Категории:
+        <li>Со скидкой</li>
+      </ul>
         <p className="catalog-header text-center" id="scroll-target">Каталог круизов</p>
         <p className="sort" onClick={this.sort}>
             Сортировать круизы по цене
             <img className="chevron" src="../assets/images/Многоугольник 1 копия 2@1X.png" alt="chevron" />
         </p>
-        <div id="shadowField"></div>
         <div id="dialog">
             <div id="chevron-left" data-role="left">
                 <span className="chevron-image-left"></span>
@@ -67,30 +68,34 @@ export default class Main extends Component {
             </div>
         </div>  
         <div className="containers">
-          {currentItems.map((item, index) => (
-            <div className={`${defaultClassName} ${index > 3 && hiddenBlockClassName}`} data-price={item.price} key={item.id}>
+          {currentProducts.map((product, index) => (
+            <div className={`${defaultClassName} ${index > 3 ? hiddenBlockClassName : ''}`} data-price={product.price} key={product.id}>
               <div className="block">
                   <div className="block__image-container">
-                    <img className="popUp" src={`../assets/images/${item.img}`} />
+                    <img className="popUp" src={`../assets/images/${product.img}`} />
                   </div>
                   <div className="block__info">
                     <p className="block__name">
-                      {item.name}
-                      <img className="chevron-right" src="../assets/images/Многоугольник 1 копия 3@1X.png" alt="chevron" />
+                      {product.name}
+                      <img 
+                        className="chevron" 
+                        src="../assets/images/Многоугольник 1 копия 3@1X.png" 
+                        alt="chevron" 
+                      />
                     </p>
                     <p className="block__road">
                       <b>Маршрут: </b>
-                      {item.road}
+                      {product.road}
                     </p>
                     <p className="block__time">
                       <b>Продолжительность: </b>
-                      {item.duration} ч.
+                      {product.duration} ч.
                     </p>
                     <p className="block__price">
-                      {item.price} руб.
-                      {item.old_price && (
+                      {product.price} руб.
+                      {product.old_price && (
                         <span className="block__old-price">
-                          {item.price} руб.
+                          {product.price} руб.
                         </span>
                       )}
                     </p>
@@ -99,7 +104,7 @@ export default class Main extends Component {
             </div>
           ))}
           <button className="button-blue" onClick={this.show}>
-            Больше круизов
+            {isHiddenBlocks ? 'Больше круизов' : 'Скрыть'}
             <img className="chevron" src="../assets/images/Многоугольник 1 копия 5@1X.png" alt="chevron" />
           </button>
         </div>

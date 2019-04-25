@@ -1,12 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import cx from 'classnames'; 
 import Button from './scrollButton';
+import Registration from './registration';
 import { Link } from 'react-router-dom';
   
 export default class Header extends Component {
 
   state = {
     activeModal: false,
+    activePopUp: false
   }
 
   onClick = e => {
@@ -18,9 +20,23 @@ export default class Header extends Component {
     })
   }
 
+  openPopUp = () => {
+    this.setState({
+      activePopUp: true,
+      activeModal: false
+    })
+  }
+
+  closePopUp = () => {
+    this.setState({
+      activePopUp: false,
+    })
+  }
+
   render () {
-    const { activeModal } = this.state;
+    const { activeModal, activePopUp } = this.state;
     const { location: { pathname } } = this.props;
+    document.body.style.overflow = activePopUp ? 'hidden' : 'auto';
     
     const modalAuthClassName = cx({
       'modal-auth': true,
@@ -28,13 +44,19 @@ export default class Header extends Component {
     })
 
     const chevronClassName = cx({
-      settings__chevron: true,
+      chevron: true,
       'active': activeModal
     })
 
     return (
       <header className="header">
         <div className="container">
+          {activePopUp && (
+            <Fragment>
+              <Registration />
+              <div onClick={this.closePopUp} className='shadowField' />
+            </Fragment>
+          )}
           <ul className="settings">
             <li 
               className="settings__item"
@@ -45,7 +67,7 @@ export default class Header extends Component {
               <input type="text" placeholder="Пароль"/>
               <div className="modal-auth__actions">
                 <button className="modal-auth__button">Вход</button>
-                <button className="modal-auth__button">Регистрация</button>
+                <button className="modal-auth__button" onClick={this.openPopUp}>Регистрация</button>
               </div>
             </div>
               <img className="settings__user" src="../assets/images/user@1X.png" alt="user" />

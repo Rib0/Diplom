@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Header from './Header';
@@ -9,18 +9,47 @@ import Info from './Info';
 import HowToJoin from './HowToJoin'
 import Footer from './Footer';
 
-export default () => {
-  return (
-    <div>
-      <Route component={Header} />
-      <Switch>
-        <Route exact path='/' component={Main}/>
-        <Route path='/about' component={About}/>
-        <Route path='/gallery' component={Gallery}/>
-        <Route path='/info' component={Info}/>
-        <Route exact path='/howtojoin' component={HowToJoin}/>
-      </Switch>
-      <Footer />
-    </div>
-  )
+import apiProducts from 'api/products';
+
+export default class App extends Component {
+
+  state = {
+    products: []
+  }
+
+  componentDidMount () {
+    apiProducts.get()
+      .then(products => this.setState({
+        products
+      }))
+      .catch(error => {
+        console.log(error);
+        this.setState({
+          products: []
+        })
+      })
+  }
+
+  render () {
+
+    const { products } = this.state;
+
+    return (
+      <div>
+        <Route component={Header} />
+        <Switch>
+          <Route exact path='/' render={props => (
+            <Main {...props} products={products} />
+          )}/>
+          <Route path='/about' component={About}/>
+          <Route path='/gallery' render={props => (
+            <Gallery {...props} products={products} />
+          )}/>
+          <Route path='/info' component={Info}/>
+          <Route path='/howtojoin' component={HowToJoin}/>
+        </Switch>
+        <Footer />
+      </div>
+    )
+  }
 }

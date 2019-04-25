@@ -1,3 +1,6 @@
+.go {
+  background: black; }
+
 @charset "UTF-8";
 * {
   box-sizing: border-box; }
@@ -29,7 +32,7 @@ img {
   max-width: 100%;
   height: auto; }
 
-.container, .container--blocks {
+.container, .container--blocks, .container--content {
   width: 100%;
   max-width: 1100px;
   min-width: 320px;
@@ -37,6 +40,18 @@ img {
   padding: 0 20px; }
   .container--blocks {
     padding: 145px 20px 50px 20px; }
+  .container--content {
+    padding: 40px 0; }
+
+.containers {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 40px;
+  margin: 0 -10px;
+  position: relative; }
+
+.text-center {
+  text-align: center; }
 
 .header {
   height: 650px;
@@ -151,26 +166,29 @@ img {
     .menu__item-link:hover {
       text-decoration: underline; }
 
+.register-popUp {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%; }
+
 .sort {
   cursor: pointer;
   display: inline-block;
   margin-left: 50%;
   transform: translateX(-50%); }
 
-.containers {
-  display: flex;
-  flex-wrap: wrap;
-  padding-top: 40px;
-  margin: 0 -10px;
-  position: relative; }
-
-.block-container {
+.block-container, .block-container--hidden, .block-container--sorting, .gallery-container {
   flex: 0 0 50%;
   max-width: 50%;
-  box-sizing: border-box;
   padding: 0 10px;
   margin-bottom: 20px;
-  transition: top 1s, left 1s; }
+  transition: top 1s, left 1s, opacity .5s; }
+  .block-container--hidden {
+    display: none; }
+  .block-container--sorting {
+    opacity: 0; }
 
 .block {
   background: white;
@@ -181,8 +199,7 @@ img {
     height: 170px; }
     .block__image-container img {
       width: 100%;
-      height: 100%;
-      cursor: pointer; }
+      height: 100%; }
   .block__info {
     padding: 30px;
     display: flex;
@@ -208,6 +225,34 @@ img {
 
 .chevron {
   margin: 0 0 1px 5px; }
+
+.gallery-container {
+  transition: none; }
+
+.gallery-block {
+  transition: transform 1s, opacity 1s;
+  height: 250px;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative; }
+  .gallery-block:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: black;
+    opacity: .3;
+    transition: opacity 1s; }
+  .gallery-block:hover > img {
+    transform: scale(1.2); }
+  .gallery-block:hover::after {
+    opacity: 0; }
+  .gallery-block > img {
+    transition: transform 1s;
+    height: 100%;
+    width: 100%; }
 
 .footer {
   background: white;
@@ -242,4 +287,5 @@ img {
     content: 'Будь на связи: ';
     flex: 0 0 100%; }
 
-/*# sourceMappingURL=styles.css.map*/
+
+/*# sourceMappingURL=main.css.map*/

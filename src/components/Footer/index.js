@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class Footer extends Component {
 
@@ -11,7 +12,7 @@ export default class Footer extends Component {
               <a href="#">Вход для партнеров</a>
             </li>
             <li>
-              <a href="#">О компании</a>
+              <Link to='/about'>О компании</Link>
             </li>
             <li>
               <a href="#">Контакты</a>
