@@ -9,12 +9,31 @@
   @extend .header__slogan;
 }
 
+@include block('category-list') {
+
+  @include element('item') {
+    font-weight: bold;
+    margin-top: 5px;
+    display: inline-block;
+
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    &:not(:last-child):after {
+      content: "|";
+      margin: 0 10px;
+    }
+  }
+}
+
 @include block('block-container') {
   flex: 0 0 50%;
   max-width: 50%;
   padding: 0 10px;
   margin-bottom: 20px;
-  transition: top 1s, left 1s, opacity .5s;
+  transition: opacity .5s linear;
 
   @include modif('hidden') {
     display: none;

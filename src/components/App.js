@@ -9,7 +9,7 @@ import Info from './Info';
 import HowToJoin from './HowToJoin'
 import Footer from './Footer';
 
-import apiProducts from 'api/products';
+import { getProducts } from 'api';
 
 export default class App extends Component {
 
@@ -18,7 +18,7 @@ export default class App extends Component {
   }
 
   componentDidMount () {
-    apiProducts.get()
+    getProducts()
       .then(products => this.setState({
         products
       }))

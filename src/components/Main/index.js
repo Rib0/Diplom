@@ -7,6 +7,7 @@ export default class Main extends Component {
     isHiddenBlocks: true,
     isSorted: false,
     isSorting: false,
+    category: null
   }
 
   show = () => {
@@ -34,12 +35,22 @@ export default class Main extends Component {
     )
   }
 
+  changeCategory = e => {
+    const { dataset: { category } } = e.target;
+    this.setState({
+      category: parseInt(category, 10)
+    })
+  }
+
   render () {
-    const { isHiddenBlocks, isSorted, isSorting } = this.state;
+    const { isHiddenBlocks, isSorted, isSorting, category } = this.state;
     const { products } = this.props;
     const sortedProducts = [...products].sort((a, b) => a.price - b.price);
-    const currentProducts = isSorted ? sortedProducts : products;
-
+    let currentProducts = isSorted ? sortedProducts : products;
+    currentProducts = category ? 
+                      currentProducts.filter(product => product.category === category) :
+                      currentProducts;
+      
     const hiddenBlockClassName = cx({
       'block-container--hidden': isHiddenBlocks,
     })
@@ -47,16 +58,18 @@ export default class Main extends Component {
       'block-container': true,
       'block-container--sorting': isSorting
     })
-    
+
     return (
       <main className="container container--blocks">
-      <ul>
-        Категории:
-        <li>Со скидкой</li>
+      <ul className='category-list'>
+        <p>Категории:</p>
+        <li className='category-list__item' data-category={0} onClick={this.changeCategory}>Все</li>
+        <li className='category-list__item' data-category={1} onClick={this.changeCategory}>Со скидкой</li>
+        <li className='category-list__item' data-category={2} onClick={this.changeCategory}>Все включено</li>
       </ul>
         <p className="catalog-header text-center" id="scroll-target">Каталог круизов</p>
         <p className="sort" onClick={this.sort}>
-            Сортировать круизы по цене
+            {`${isSorted ? 'Отменить сортировку' : 'Сортировать круизы по цене'}`}
             <img className="chevron" src="../assets/images/Многоугольник 1 копия 2@1X.png" alt="chevron" />
         </p>
         <div id="dialog">
@@ -93,9 +106,9 @@ export default class Main extends Component {
                     </p>
                     <p className="block__price">
                       {product.price} руб.
-                      {product.old_price && (
+                      {product.old_price !== 0 && (
                         <span className="block__old-price">
-                          {product.price} руб.
+                          {product.old_price} руб.
                         </span>
                       )}
                     </p>
@@ -103,10 +116,12 @@ export default class Main extends Component {
               </div>
             </div>
           ))}
-          <button className="button-blue" onClick={this.show}>
-            {isHiddenBlocks ? 'Больше круизов' : 'Скрыть'}
-            <img className="chevron" src="../assets/images/Многоугольник 1 копия 5@1X.png" alt="chevron" />
-          </button>
+          {currentProducts.length > 3 && (
+            <button className="button-blue" onClick={this.show}>
+              {isHiddenBlocks ? 'Больше круизов' : 'Скрыть'}
+              <img className={`${!isHiddenBlocks ? 'chevron--active' : ''} chevron`} src="../assets/images/Многоугольник 1 копия 5@1X.png" alt="chevron" />
+           </button>
+          )}
         </div>
       </main>
     )

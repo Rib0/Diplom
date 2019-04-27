@@ -43,7 +43,7 @@ img {
   padding: 0 20px;
 
   @include modif('blocks') {
-    padding: 145px 20px 50px 20px;
+    padding: 105px 20px 50px 20px;
   }
 
   @include modif('content') {
@@ -62,6 +62,10 @@ img {
 .chevron {
   margin-left: 10px;
   margin-bottom: 2px;
+  
+  &--active {
+    transform: rotate(180deg);
+  }
 }
 
 .text-center {
