@@ -6,6 +6,7 @@ import Main from './Main';
 import About from './About';
 import Gallery from './Gallery';
 import Info from './Info';
+import Product from './Product';
 import HowToJoin from './HowToJoin'
 import Footer from './Footer';
 
@@ -18,6 +19,10 @@ export default class App extends Component {
   }
 
   componentDidMount () {
+    this.getProducts();
+  }
+
+  getProducts () {
     getProducts()
       .then(products => this.setState({
         products
@@ -41,6 +46,9 @@ export default class App extends Component {
           <Route exact path='/' render={props => (
             <Main {...props} products={products} />
           )}/>
+          <Route path='/products/:number' render={props => (
+            <Product {...props} products={products} />
+          )}/>/>
           <Route path='/about' component={About}/>
           <Route path='/gallery' render={props => (
             <Gallery {...props} products={products} />

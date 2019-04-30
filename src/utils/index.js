@@ -2,7 +2,6 @@ const generateData = object => {
   const arr = Object.entries(object);
   const formData = new FormData();
   arr.forEach(([key, value]) => formData.append(key, value));
-  console.log(formData)
   return formData;
 }
 
@@ -11,7 +10,6 @@ export const makeRequest =  (url, method, data) => {
     const xhr = new XMLHttpRequest();
     const newData = data ? generateData(data) : null;
     xhr.open(url, method)
-
     xhr.onload = function () {
       if (this.status === 200) 
         resolve(this.response)

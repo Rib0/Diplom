@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
+import { Link } from 'react-router-dom';
 
 export default class Main extends Component {
 
@@ -89,7 +90,7 @@ export default class Main extends Component {
                   </div>
                   <div className="block__info">
                     <p className="block__name">
-                      {product.name}
+                      <Link to={`/products/${product.id}`}>{product.name}</Link>
                       <img 
                         className="chevron" 
                         src="../assets/images/Многоугольник 1 копия 3@1X.png" 

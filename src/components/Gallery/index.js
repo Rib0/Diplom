@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 export default class Gallery extends Component {
 
   render () {
-    const { products } = this.props;
+    const { products } = this.props; // тут сделать popUp
 
     return (
-      <main className='container--content'>
+      <main className='container container--content'>
         <h1 className='catalog-header'>Галерея</h1>
         <div className='containers'>
           {products.map(product => (
