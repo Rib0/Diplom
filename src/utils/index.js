@@ -25,3 +25,13 @@ export const makeRequest =  (url, method, data) => {
     xhr.send(newData);
   })
 }
+
+export const isAuth = () => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  return user;
+}
+
+export const authorize = data => {
+  const user = JSON.stringify(data);
+  localStorage.setItem('user', user);
+}

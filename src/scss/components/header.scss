@@ -46,10 +46,9 @@
   cursor: pointer;
   margin-bottom: 15px;
 
-  &:active {
-    width: 207px;
-    padding: 16px 0;
-    margin-bottom: 13px;
+  @include modif('comment') {
+    margin: 0;
+    transform: none;
   }
 }
 
@@ -120,6 +119,11 @@
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
+    flex: 1;
+
+    &:first-child {
+      margin-right: 4px;
+    }
   }
 }
 

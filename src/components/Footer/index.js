@@ -21,22 +21,22 @@ export default class Footer extends Component {
           <ul className="footer-contacts">
             <li className="footer-contacts__item">
               <a className="footer-contacts__link" href="#">
-                <img src="../assets/images/vk@1X.png" alt="vk" />
+                <img src="assets/images/vk@1X.png" alt="vk" />
               </a>        
             </li>
             <li className="footer-contacts__item">
               <a className="footer-contacts__link" href="#">
-                <img src="../assets/images/ok@1X.png" alt="odnokassniki" />
+                <img src="assets/images/ok@1X.png" alt="odnokassniki" />
               </a>
             </li>
             <li className="footer-contacts__item">
               <a className="footer-contacts__link" href="#">
-                <img src="../assets/images/yt@1X (4).png" alt="youtube" />
+                <img src="assets/images/yt@1X (4).png" alt="youtube" />
               </a>
             </li>
             <li className="footer-contacts__item">
               <a className="footer-contacts__link" href="#">
-                <img src="../assets/images/insta@1X.png" alt="instagram" />
+                <img src="assets/images/insta@1X.png" alt="instagram" />
               </a>
             </li>
           </ul>

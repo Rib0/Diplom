@@ -1,5 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
   entry: [
@@ -9,12 +10,12 @@ const config = {
   output: {
     path: path.join(__dirname, '/dist'),
     filename: '[name].js',
-    publicPath: '/dist'
   },
   devServer: {
     overlay: true,
     historyApiFallback: true,
     port: 3000,
+    contentBase: path.join(__dirname, 'dist')
   },
   module: {
     rules: [
@@ -24,26 +25,34 @@ const config = {
         exclude: [/node_modules/],
       },
       {
-        test: /\.(css|scss)$/,     
+        test: /\.(css|scss)$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
-              loader: 'css-loader',
-              options: {
-                // modules: true,
-                // localIdentName: '[local]___[hash:base64:5]', //to read about it
-                // sourceMap: true,
-                // importLoaders: 2, // to read about it
-                // url: false
-              }
+            loader: 'css-loader',
+            options: {
+              // modules: true,
+              localIdentName: '[local]___[hash:base64:5]', //to read about it
+              // importLoaders: 2, // to read about it
+              // url: false
+            }
           },
-          'sass-loader',
+          'sass-loader'
         ]
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: { name: 'images/[name].[ext]' } 
+          },
+        ],
       }
     ]
   },
   resolve: {
-    extensions: ['.scss', '.js', '.json'],
+    extensions: ['.scss', '.js'],
     modules: ['node_modules', path.join(__dirname, 'src')],
   },
   devtool: 'source-map',
@@ -53,6 +62,12 @@ const config = {
       allChunks: true, // to read about it
       // chunkFilename: '[id].[hash].css', // to read about it
     }),
+    new HtmlWebpackPlugin({
+      inject: false, // помещает скрипт внуть body
+      hash: true,
+      template: './index.html', // на основе какого файла делать шаблон
+      filename: 'index.html'
+    })
   ]
 }
 

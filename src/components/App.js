@@ -11,15 +11,23 @@ import HowToJoin from './HowToJoin'
 import Footer from './Footer';
 
 import { getProducts } from 'api';
+import { isAuth, authorize } from 'utils';
 
 export default class App extends Component {
 
   state = {
-    products: []
+    products: [],
+    user: {
+      auth: null,
+      name: '',
+      email: '',
+      isadmin: false
+    }
   }
 
   componentDidMount () {
     this.getProducts();
+    this.isAuth();  
   }
 
   getProducts () {
@@ -35,19 +43,36 @@ export default class App extends Component {
       })
   }
 
+  authorize = user => {
+    this.setState({
+      user
+    })
+    authorize(user);
+  }
+
+  isAuth () {
+    const user = isAuth();
+    if (user.auth)
+      this.setState({
+        user
+      })
+  }
+
   render () {
 
-    const { products } = this.state;
+    const { products, user } = this.state;
 
     return (
       <div>
-        <Route component={Header} />
+        <Route render={props => (
+          <Header {...props} authorize={this.authorize} user={user} />
+        )}/>
         <Switch>
           <Route exact path='/' render={props => (
             <Main {...props} products={products} />
           )}/>
           <Route path='/products/:number' render={props => (
-            <Product {...props} products={products} />
+            <Product {...props} products={products} name={user.name || 'Анонимно'} isAdmin={user.isadmin} />
           )}/>/>
           <Route path='/about' component={About}/>
           <Route path='/gallery' render={props => (

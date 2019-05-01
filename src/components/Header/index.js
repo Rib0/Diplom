@@ -61,19 +61,32 @@ export default class Header extends Component {
     }
     auth({ login, password })
       .then(resp => {
-        console.log(resp)
         if (resp.error) {
           this.activeRegistrPopUp('Неверный логин или пароль');
+          return;
         }
+        this.props.authorize(resp);
+        this.setState({ activeModal: false })
       })
       .catch(error => {
         console.log(error);
       })
   }
 
+  logOut = () => {
+    const user = {
+      auth: null,
+      email: '',
+      name: '',
+      isadmin: false
+    }
+    this.props.authorize(user);
+    this.setState({ activeModal: false })
+  }
+
   render () {
     const { activeModal, activePopUp, success, popUpText, login, password } = this.state;
-    const { location: { pathname } } = this.props;
+    const { location: { pathname }, user: { auth, email } } = this.props;
     document.body.style.overflow = activePopUp ? 'hidden' : 'auto';
     
     const modalAuthClassName = cx({
@@ -109,18 +122,30 @@ export default class Header extends Component {
               onClick={this.onClick}
             >
             <div className={modalAuthClassName}>
-              <input type="text" name="login" value={login} onChange={this.onChange} placeholder="Логин"/>
-              <input type="password" name="password" value={password} onChange={this.onChange} placeholder="Пароль"/>
+              {!auth && (
+                <Fragment>
+                  <input type="text" name="login" value={login} onChange={this.onChange} placeholder="Логин"/>
+                  <input type="password" name="password" value={password} onChange={this.onChange} placeholder="Пароль"/>
+                </Fragment>
+              )}
               <div className="modal-auth__actions">
-                <button type='submit' onClick={this.auth} className="modal-auth__button">Вход</button>
-                <button className="modal-auth__button" onClick={this.openPopUp}>Регистрация</button>
+                <button 
+                  type='submit' 
+                  onClick={auth ? this.logOut : this.auth} 
+                  className="modal-auth__button"
+                >
+                  {auth ? 'Выход' : 'Вход'}
+                </button>
+                {!auth && (
+                  <button className="modal-auth__button" onClick={this.openPopUp}>Регистрация</button>
+                )}
               </div>
             </div>
-              <img className="settings__user" src="../assets/images/user@1X.png" alt="user" />
-              Личный кабинет
+              <img className="settings__user" src="assets/images/user@1X.png" alt="user" />
+              {auth ? email : 'Личный кабинет'}
               <img
                 className={chevronClassName} 
-                src="../assets/images/Многоугольник 1 копия 2@1X.png" 
+                src="assets/images/Многоугольник 1 копия 2@1X.png" 
                 alt="chevron"
               />
             </li>
@@ -149,7 +174,7 @@ export default class Header extends Component {
             </ul>
           </nav>
           <div className="header__logo">
-            <img src="../assets/images/logo@1X.png" alt="logo" />
+            <img src="assets/images/logo@1X.png" alt="logo" />
           </div>
           <div>
             <p className="header__slogan">Морские прогулки</p>
@@ -159,7 +184,7 @@ export default class Header extends Component {
             <Fragment>
               <Button />
                 <div className="header__figure">
-                <img src="../assets/images/Фигура 1@1X (1).png" alt="figure" />
+                <img src="assets/images/Фигура 1@1X (1).png" alt="figure" />
               </div>
             </Fragment>
           )}

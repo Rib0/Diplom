@@ -71,7 +71,7 @@ export default class Main extends Component {
         <p className="catalog-header text-center" id="scroll-target">Каталог круизов</p>
         <p className="sort" onClick={this.sort}>
             {`${isSorted ? 'Отменить сортировку' : 'Сортировать круизы по цене'}`}
-            <img className="chevron" src="../assets/images/Многоугольник 1 копия 2@1X.png" alt="chevron" />
+            <img className="chevron" src="assets/images/Многоугольник 1 копия 2@1X.png" alt="chevron" />
         </p>
         <div id="dialog">
             <div id="chevron-left" data-role="left">
@@ -86,14 +86,14 @@ export default class Main extends Component {
             <div className={`${defaultClassName} ${index > 3 ? hiddenBlockClassName : ''}`} data-price={product.price} key={product.id}>
               <div className="block">
                   <div className="block__image-container">
-                    <img className="popUp" src={`../assets/images/${product.img}`} />
+                    <img className="popUp" src={`assets/images/${product.img}`} />
                   </div>
                   <div className="block__info">
                     <p className="block__name">
                       <Link to={`/products/${product.id}`}>{product.name}</Link>
                       <img 
                         className="chevron" 
-                        src="../assets/images/Многоугольник 1 копия 3@1X.png" 
+                        src="assets/images/Многоугольник 1 копия 3@1X.png" 
                         alt="chevron" 
                       />
                     </p>
@@ -120,7 +120,7 @@ export default class Main extends Component {
           {currentProducts.length > 3 && (
             <button className="button-blue" onClick={this.show}>
               {isHiddenBlocks ? 'Больше круизов' : 'Скрыть'}
-              <img className={`${!isHiddenBlocks ? 'chevron--active' : ''} chevron`} src="../assets/images/Многоугольник 1 копия 5@1X.png" alt="chevron" />
+              <img className={`${!isHiddenBlocks ? 'chevron--active' : ''} chevron`} src="assets/images/Многоугольник 1 копия 5@1X.png" alt="chevron" />
            </button>
           )}
         </div>
