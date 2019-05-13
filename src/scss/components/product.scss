@@ -58,3 +58,7 @@
   margin-left: 10px;
   cursor: pointer;
 }
+
+@include block('comment-decription') {
+  margin: 0 0 10px 0;
+}

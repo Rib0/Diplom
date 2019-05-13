@@ -55,10 +55,12 @@
 @include block('settings') {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 
   @include element('item') {
-    margin-left: 50px;
+    padding: 0 20px;
     cursor: pointer;
+    position: relative;
 
     & .active {
       transform: rotate(180deg);

@@ -9,18 +9,18 @@ export const makeRequest =  (url, method, data) => {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     const newData = data ? generateData(data) : null;
-    xhr.open(url, method)
+    xhr.open(url, method);
     xhr.onload = function () {
       if (this.status === 200) 
-        resolve(this.response)
-    }
+        resolve(this.response);
+    };
 
     xhr.onerror = function () {
       reject({
         status: this.statusText,
         error: this.status
       })
-    }
+    };
 
     xhr.send(newData);
   })
@@ -34,4 +34,19 @@ export const isAuth = () => {
 export const authorize = data => {
   const user = JSON.stringify(data);
   localStorage.setItem('user', user);
+}
+
+export const addToFave = id => {
+  let wishList = JSON.parse(localStorage.getItem('wishlist'));
+  if (!wishList) wishList = [];
+  const sameIndex = wishList.findIndex(item => item === id);
+  if (!~sameIndex) wishList.push(id)
+  else wishList.splice(sameIndex, 1);
+  console.log(wishList)
+  localStorage.setItem('wishlist', JSON.stringify(wishList));
+}
+
+export const isInWishlist = id => {
+  const wishList = JSON.parse(localStorage.getItem('wishlist'));
+  return ~wishList.findIndex(item => item == id);
 }

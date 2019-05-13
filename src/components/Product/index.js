@@ -25,7 +25,8 @@ export default class Product extends Component {
           <p>Продолжительность: {product.duration} часов</p>
         </Fragment>
       )}
-      <h2>Комментарии: </h2>
+      <h2>Комментарии:</h2>
+      <p className='comment-decription'>Ваш комментарий появится на сайте после проверки модератора</p>
       <Comments name={name} productId={parseInt(params.number, 10)} isAdmin={isAdmin} />
       </main>
     )

@@ -20,7 +20,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         loader: 'babel-loader',
         exclude: [/node_modules/],
       },
@@ -48,6 +48,16 @@ const config = {
             options: { name: 'images/[name].[ext]' } 
           },
         ],
+      },      
+      {
+        test: /\.svg$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'svg-react-loader',
+          options: {
+            name: 'SvgIcon',
+          },
+        },
       }
     ]
   },

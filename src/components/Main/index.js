@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
 import { Link } from 'react-router-dom';
+import Button from './faveButton';
 
 export default class Main extends Component {
 
@@ -73,14 +74,6 @@ export default class Main extends Component {
             {`${isSorted ? 'Отменить сортировку' : 'Сортировать круизы по цене'}`}
             <img className="chevron" src="assets/images/Многоугольник 1 копия 2@1X.png" alt="chevron" />
         </p>
-        <div id="dialog">
-            <div id="chevron-left" data-role="left">
-                <span className="chevron-image-left"></span>
-            </div>
-            <div id="chevron-right" data-role="right">
-                <span className="chevron-image-right"></span>
-            </div>
-        </div>  
         <div className="containers">
           {currentProducts.map((product, index) => (
             <div className={`${defaultClassName} ${index > 3 ? hiddenBlockClassName : ''}`} data-price={product.price} key={product.id}>
@@ -112,6 +105,7 @@ export default class Main extends Component {
                           {product.old_price} руб.
                         </span>
                       )}
+                    <Button id={product.id} />
                     </p>
                 </div>
               </div>

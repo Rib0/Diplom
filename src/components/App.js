@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Header from './Header';
@@ -9,6 +9,7 @@ import Info from './Info';
 import Product from './Product';
 import HowToJoin from './HowToJoin'
 import Footer from './Footer';
+import Basket from './Basket';
 
 import { getProducts } from 'api';
 import { isAuth, authorize } from 'utils';
@@ -27,7 +28,7 @@ export default class App extends Component {
 
   componentDidMount () {
     this.getProducts();
-    this.isAuth();  
+    this.isAuth();
   }
 
   getProducts () {
@@ -63,7 +64,7 @@ export default class App extends Component {
     const { products, user } = this.state;
 
     return (
-      <div>
+      <Fragment>
         <Route render={props => (
           <Header {...props} authorize={this.authorize} user={user} />
         )}/>
@@ -80,9 +81,12 @@ export default class App extends Component {
           )}/>
           <Route path='/info' component={Info}/>
           <Route path='/howtojoin' component={HowToJoin}/>
+          <Route path='/wishlist' render={props => (
+            <Basket {...props} products={products} />
+          )}/>
         </Switch>
         <Footer />
-      </div>
+      </Fragment>
     )
   }
 }

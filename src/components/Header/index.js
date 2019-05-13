@@ -4,7 +4,8 @@ import Button from './scrollButton';
 import Registration from './registration';
 import { Link } from 'react-router-dom';
 import { auth } from 'api';
-  
+import SvgIcon from '../../../dist/assets/images/fave.svg';
+
 export default class Header extends Component {
 
   state = {
@@ -117,6 +118,11 @@ export default class Header extends Component {
             {popUpText}
           </div>
           <ul className="settings">
+            <li>
+              <Link to='/wishlist'>
+                <SvgIcon style={{ width: '50px', fill: 'black' }} />
+              </Link>
+            </li>
             <li 
               className="settings__item"
               onClick={this.onClick}

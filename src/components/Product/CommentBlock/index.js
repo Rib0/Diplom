@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { addComment, getComments } from 'api';
+import { addComment, getComments, moderateComment, deleteComment } from 'api';
 
 const OPTIONS = {
   hour: 'numeric',
@@ -38,10 +38,10 @@ export default class Comments extends Component {
     const date = new Date().toLocaleDateString('ru', OPTIONS);
     const data = { name, date, text, productId };
     addComment(data)
-    .then(() => {
+    .then(id => {
       this.setState({
         text: '',
-        comments: [...comments, data]
+        comments: [...comments, { ...data, id }]
       })
     })
     .catch(error => {
@@ -50,17 +50,35 @@ export default class Comments extends Component {
     })
   }
 
-  acceptComment = () => {
-
+  acceptComment = id => {
+    const { comments } = this.state;
+    moderateComment({ id })
+      .then(() => {
+        this.setState({
+          comments: comments.map(comment => comment.id === id ? { ...comment, moderated: 1 } : comment)
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      })
   }
 
-  deleteComment = () => {
-
+  deleteComment = id => {
+    deleteComment({ id })
+      .then(() => {
+        this.setState({
+          comments: this.state.comments.filter(comment => comment.id !== id)
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      })
   }
 
   render () {
     const { comments } = this.state;
     const { isAdmin } = this.props;
+    console.log(this.state.comments)
 
     return (
       <Fragment>
@@ -74,8 +92,8 @@ export default class Comments extends Component {
                   {comment.date}
                   {!comment.moderated && (
                     <Fragment>
-                      <button onClick={this.acceptComment} className='comment-action'>Принять</button>
-                      <button onClick={this.deleteComment} className='comment-action'>Удалить</button>
+                      <button onClick={() => this.acceptComment(comment.id)} className='comment-action'>Принять</button>
+                      <button onClick={() => this.deleteComment(comment.id)} className='comment-action'>Удалить</button>
                     </Fragment>
                   )}
                 </p>

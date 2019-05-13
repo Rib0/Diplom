@@ -1,3 +1,9 @@
+@keyframes add {
+  50% {
+    transform: scale(1.4);
+  }
+}
+
 @include block('sort') {
   cursor: pointer;
   display: inline-block;
@@ -7,6 +13,33 @@
 
 @include block('catalog-header') {
   @extend .header__slogan;
+}
+
+@include block('fave') {
+  height: 30px;
+  position: relative;
+  top: 7px;
+  margin-left: 20px;
+  fill: none;
+  cursor: pointer;
+
+  @include modif('active') {
+    animation: add .5s;
+    fill: red;
+  }
+}
+
+@include block('wishlist') {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+  margin-bottom: 20px;
+
+  td, th {
+    border: 1px solid black;
+    padding: 20px;
+    text-align: center;
+  }
 }
 
 @include block('category-list') {
