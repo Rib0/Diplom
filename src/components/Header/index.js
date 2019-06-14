@@ -17,6 +17,10 @@ export default class Header extends Component {
     password: ''
   }
 
+  componentDidUpdate () {
+    window.scrollTop = 0;
+  }
+
   onClick = e => {
     const { tagName } = e.target;
     if (tagName !== 'LI' && tagName !== 'IMG') return;
@@ -173,9 +177,6 @@ export default class Header extends Component {
               </li>
               <li className="menu__item">
                 <Link to='/info' className="menu__item-link" href="#">Информация</Link>
-              </li>
-              <li className="menu__item">
-                <Link to='/howtojoin' className="menu__item-link" href="#">Как доехать</Link>
               </li>
             </ul>
           </nav>

@@ -8,6 +8,11 @@ const OPTIONS = {
 
 export default class Comments extends Component {
 
+  state = {
+    text: '',
+    comments: []
+  }
+
   componentDidMount () {
     const { productId } = this.props;
     getComments({ productId })
@@ -18,11 +23,6 @@ export default class Comments extends Component {
         console.log(error);
         this.setState({ comments: [] });
       })
-  }
-
-  state = {
-    text: '',
-    comments: []
   }
 
   onChange = e => {
@@ -78,7 +78,6 @@ export default class Comments extends Component {
   render () {
     const { comments } = this.state;
     const { isAdmin } = this.props;
-    console.log(this.state.comments)
 
     return (
       <Fragment>

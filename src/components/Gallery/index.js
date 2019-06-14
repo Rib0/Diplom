@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class Gallery extends Component {
 
   render () {
-    const { products } = this.props; // тут сделать popUp
+    const { products } = this.props;
 
     return (
       <main className='container container--content'>

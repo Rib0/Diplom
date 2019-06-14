@@ -40,13 +40,12 @@ export const addToFave = id => {
   let wishList = JSON.parse(localStorage.getItem('wishlist'));
   if (!wishList) wishList = [];
   const sameIndex = wishList.findIndex(item => item === id);
-  if (!~sameIndex) wishList.push(id)
+  if (!~sameIndex) wishList.push(id);
   else wishList.splice(sameIndex, 1);
-  console.log(wishList)
   localStorage.setItem('wishlist', JSON.stringify(wishList));
 }
 
 export const isInWishlist = id => {
-  const wishList = JSON.parse(localStorage.getItem('wishlist'));
+  const wishList = JSON.parse(localStorage.getItem('wishlist')) || [];
   return ~wishList.findIndex(item => item == id);
 }
