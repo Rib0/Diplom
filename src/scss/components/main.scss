@@ -24,7 +24,7 @@
   cursor: pointer;
 
   @include modif('active') {
-    animation: add .5s;
+    animation: add .5s ease-out;
     fill: red;
   }
 }

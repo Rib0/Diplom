@@ -18,7 +18,7 @@ export default class Header extends Component {
   }
 
   componentDidUpdate () {
-    window.scrollTop = 0;
+    window.scrollTo(0, 0);
   }
 
   onClick = e => {
