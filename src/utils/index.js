@@ -37,15 +37,15 @@ export const authorize = data => {
 }
 
 export const addToFave = id => {
-  let wishList = JSON.parse(localStorage.getItem('wishlist'));
-  if (!wishList) wishList = [];
-  const sameIndex = wishList.findIndex(item => item === id);
-  if (!~sameIndex) wishList.push(id);
-  else wishList.splice(sameIndex, 1);
+  let wishList = JSON.parse(localStorage.getItem('wishlist')) || [];
+  if (wishList.includes(id)) 
+    wishList = wishList.filter(item => item != id)
+  else  
+    wishList.push(id);
   localStorage.setItem('wishlist', JSON.stringify(wishList));
 }
 
 export const isInWishlist = id => {
   const wishList = JSON.parse(localStorage.getItem('wishlist')) || [];
-  return ~wishList.findIndex(item => item == id);
+  return wishList.includes(id);
 }
