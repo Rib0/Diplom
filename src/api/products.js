@@ -1,8 +1,10 @@
-const getProductsUrl = 'http://localhost:8080/api/getProducts.php';
 import { getProducts } from '../actions';
+import { makeRequest } from 'utils';
 
-export const getProducts = () => {
-    return dispatch => {
+const getProductsUrl = 'http://localhost:8080/api/getProducts.php';
+
+export const getProductsAsync = () => {
+    return (dispatch, getState) => {
       makeRequest('GET', getProductsUrl)
         .then(JSON.parse)
         .then(data => dispatch(getProducts(data)))

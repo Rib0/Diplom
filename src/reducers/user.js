@@ -1,4 +1,4 @@
-export default function (state = {}, { type, payload }) {
+export default function (state = null, { type, payload }) {
   switch(type) {
     case 'LOG_IN':
       return payload;

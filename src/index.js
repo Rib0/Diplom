@@ -4,14 +4,16 @@ import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
 import App from './components/App';
 import rootReducer from './reducers';
 
-const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 const history = createBrowserHistory();
+const store = createStore(rootReducer, applyMiddleware(thunk, logger));
+history.listen(() => window.scrollTo(0, 0))
 
 render(
   <Provider store={store}>

@@ -1,11 +1,12 @@
 import { getComments, addComment, deleteComment, acceptComent } from '../actions';
+import { makeRequest } from 'utils';
 
 const getCommentsUrl = 'http://localhost:8080/api/getComments.php';
 const addCommentUrl = 'http://localhost:8080/api/addComment.php';
 const moderateCommentUrl = 'http://localhost:8080/api/moderateComment.php';
 const deleteCommentUrl = 'http://localhost:8080/api/deleteComment.php';
 
-export const getComments = id => {
+export const getCommentsAsync = id => {
   return dispatch => {
     makeRequest('POST', getCommentsUrl, id)
       .then(JSON.parse)
@@ -14,7 +15,7 @@ export const getComments = id => {
   }
 }
 
-export const addComment = data => {
+export const addCommentAsync = data => {
   return dispatch => {
     makeRequest('POST', addCommentUrl, data)
       .then(id => dispatch(addComment({ ...data, id })))
@@ -22,7 +23,7 @@ export const addComment = data => {
   }
 }
 
-export const deleteComment = id => {
+export const deleteCommentAsync = id => {
   return dispatch => {
     makeRequest('POST', deleteCommentUrl, id)
       .then(() => dispatch(deleteComment(id)))
@@ -30,7 +31,7 @@ export const deleteComment = id => {
   }
 }
 
-export const acceptComent = id => {
+export const acceptComentAsync = id => {
   return dispatch => {
     makeRequest('POST', moderateCommentUrl, id)
       .then(() => dispatch(acceptComent(id)))

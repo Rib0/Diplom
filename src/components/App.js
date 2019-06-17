@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Header from './Header';
 import Main from './Main';
@@ -11,66 +12,25 @@ import HowToJoin from './HowToJoin'
 import Footer from './Footer';
 import Basket from './Basket';
 
-import { getProducts } from 'api';
-import { isAuth, authorize } from 'utils';
+import { getProductsAsync } from 'api/products';
+import { logIn } from 'actions';
+import { isAuth } from 'utils';
 
-export default class App extends Component {
-
-  state = {
-    products: [],
-    user: {
-      auth: null,
-      name: '',
-      email: '',
-      isadmin: false
-    }
-  }
+class App extends Component {
 
   componentDidMount () {
-    this.getProducts();
-    this.isAuth();
-  }
-
-  getProducts () {
-    getProducts()
-      .then(products => this.setState({
-        products
-      }))
-      .catch(error => {
-        console.log(error);
-        this.setState({
-          products: []
-        })
-      })
-  }
-
-  authorize = user => {
-    this.setState({
-      user
-    })
-    authorize(user);
-  }
-
-  isAuth () {
-    const user = isAuth();
-    if (user.auth)
-      this.setState({
-        user
-      })
+    this.props.getProducts();
+    this.props.logIn(isAuth());
   }
 
   render () {
 
-    const { products, user } = this.state;
-
     return (
       <Fragment>
-        <Route render={props => (
-          <Header {...props} authorize={this.authorize} user={user} />
-        )}/>
+        <Header />
         <Switch>
           <Route exact path='/' render={props => (
-            <Main {...props} products={products} />
+            <Main {...props} products={[]} />
           )}/>
           <Route path='/products/:number' render={props => (
             <Product {...props} products={products} name={user.name || 'Анонимно'} isAdmin={user.isadmin} />
@@ -90,3 +50,10 @@ export default class App extends Component {
     )
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  getProducts: () => dispatch(getProductsAsync()),
+  logIn: data => dispatch(logIn(data))
+})
+
+export default withRouter(connect(null, mapDispatchToProps)(App));

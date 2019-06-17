@@ -18,4 +18,4 @@ export const logOut = () => ({ type: 'LOG_OUT' });
 export const getAdminInfo = data => ({ type: 'GET_ADMIN_INFO', payload: data });
 
 // modal action creators
-export const activateModal = data => ({ type: 'ACTIVATE_MODAL', payload: data });
+export const toggleToast = data => ({ type: 'TOGGLE_TOAST', payload: data });

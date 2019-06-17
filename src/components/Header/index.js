@@ -1,24 +1,20 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { withRouter, Link } from 'react-router-dom';
+
 import cx from 'classnames'; 
 import Button from './scrollButton';
 import Registration from './registration';
-import { Link } from 'react-router-dom';
-import { auth } from 'api';
 import SvgIcon from '../../../dist/assets/images/fave.svg';
+import { loginIn, loginOut } from 'api/user';
 
-export default class Header extends Component {
+class Header extends Component {
 
   state = {
     activeModal: false,
-    activePopUp: false,
-    success: false,
-    popUpText: '',
+    activeForm: false,
     login: '',
-    password: ''
-  }
-
-  componentDidUpdate () {
-    window.scrollTo(0, 0);
+    password: '',
   }
 
   onClick = e => {
@@ -37,63 +33,28 @@ export default class Header extends Component {
     })
   }
 
-  openPopUp = () => {
-    this.setState({
-      activePopUp: true,
-      activeModal: false
-    })
-  }
-
-  closePopUp = () => {
-    this.setState({
-      activePopUp: false,
-    })
-  }
-
-  activeRegistrPopUp = (popUpText, isError) => {
-    if (this.state.success) return;
-    this.setState(() => ({ success: true, activePopUp: isError, popUpText}));
-    setTimeout(() => {
-      this.setState({ success: false })
-    }, 3000);
-  }
+  toggleForm = () => this.setState({ activeForm: !this.state.activeForm });
 
   auth = () => {
-    const { login, password } = this.state;
-    if (!login || !password) {
-      this.activeRegistrPopUp('Заполните все данные');
-      return;
-    }
-    auth({ login, password })
-      .then(resp => {
-        if (resp.error) {
-          this.activeRegistrPopUp('Неверный логин или пароль');
-          return;
-        }
-        this.props.authorize(resp);
-        this.setState({ activeModal: false })
-      })
-      .catch(error => {
-        console.log(error);
-      })
+    const { login, password } = this.state;    
+    this.props.loginIn({ login, password });
+    this.setState({ 
+      activeModal: false,
+      login: '',
+      password: ''
+    });
   }
 
   logOut = () => {
-    const user = {
-      auth: null,
-      email: '',
-      name: '',
-      isadmin: false
-    }
-    this.props.authorize(user);
-    this.setState({ activeModal: false })
+    this.setState({ activeModal: false });
+    this.props.loginOut();
   }
 
   render () {
-    const { activeModal, activePopUp, success, popUpText, login, password } = this.state;
-    const { location: { pathname }, user: { auth, email } } = this.props;
-    document.body.style.overflow = activePopUp ? 'hidden' : 'auto';
-    
+    const { activeModal, activeForm, login, password } = this.state;
+    const { location: { pathname }, toast, user } = this.props;
+    document.body.style.overflow = activeForm ? 'hidden' : 'auto';
+
     const modalAuthClassName = cx({
       'modal-auth': true,
       'modal-auth--active': activeModal
@@ -106,20 +67,20 @@ export default class Header extends Component {
 
     const succesRegistration = cx({
       'success-registration': true,
-      'success-registration--active': success
+      'success-registration--active': !!toast
     })
 
     return (
       <header className="header">
         <div className="container">
-          {activePopUp && (
+          {activeForm && (
             <Fragment>
-              <Registration activeRegistrPopUp={this.activeRegistrPopUp}/>
-              <div onClick={this.closePopUp} className='shadowField' />
+              <Registration activeRegistrPopUp={this.activeRegistrPopUp}/> 
+              <div onClick={this.toggleForm} className='shadowField' />
             </Fragment>
           )}
           <div className={succesRegistration}>
-            {popUpText}
+            {toast}
           </div>
           <ul className="settings">
             <li>
@@ -132,7 +93,7 @@ export default class Header extends Component {
               onClick={this.onClick}
             >
             <div className={modalAuthClassName}>
-              {!auth && (
+              {!user && (
                 <Fragment>
                   <input type="text" name="login" value={login} onChange={this.onChange} placeholder="Логин"/>
                   <input type="password" name="password" value={password} onChange={this.onChange} placeholder="Пароль"/>
@@ -141,18 +102,18 @@ export default class Header extends Component {
               <div className="modal-auth__actions">
                 <button 
                   type='submit' 
-                  onClick={auth ? this.logOut : this.auth} 
+                  onClick={user ? this.logOut : this.auth} 
                   className="modal-auth__button"
                 >
-                  {auth ? 'Выход' : 'Вход'}
+                  {user ? 'Выход' : 'Вход'}
                 </button>
-                {!auth && (
-                  <button className="modal-auth__button" onClick={this.openPopUp}>Регистрация</button>
+                {!user && (
+                  <button className="modal-auth__button" onClick={this.toggleForm}>Регистрация</button>
                 )}
               </div>
             </div>
               <img className="settings__user" src="assets/images/user@1X.png" alt="user" />
-              {auth ? email : 'Личный кабинет'}
+              {user ? user.email : 'Личный кабинет'}
               <img
                 className={chevronClassName} 
                 src="assets/images/Многоугольник 1 копия 2@1X.png" 
@@ -200,3 +161,15 @@ export default class Header extends Component {
     )
   }
 }
+
+const mapStateToProps = ({ toast, user }) => ({
+  toast,
+  user
+})
+
+const mapDispatchToProps = dispatch => ({
+  loginIn: data => dispatch(loginIn(data)),
+  loginOut: () => dispatch(loginOut())
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
