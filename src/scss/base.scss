@@ -59,6 +59,10 @@ img {
   position: relative;
 }
 
+@include block('paragraph') {
+  margin-bottom: 10px;
+}
+
 .chevron {
   margin-left: 10px;
   margin-bottom: 2px;

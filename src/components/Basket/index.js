@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { isInWishlist } from '../../utils';
 
-export default class Basket extends Component {
+class Basket extends Component {
 
   render () {
     const { products } = this.props;
@@ -49,3 +49,9 @@ export default class Basket extends Component {
     )
   }
 }
+
+const mapStateToProps = ({ products }) => ({
+  products
+})
+
+export default withRouter(connect(mapStateToProps)(Basket));

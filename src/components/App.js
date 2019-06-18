@@ -10,6 +10,7 @@ import Info from './Info';
 import Product from './Product';
 import Footer from './Footer';
 import Basket from './Basket';
+import Payment from './Payment';
 
 import { getProductsAsync } from 'api/products';
 import { logIn } from 'actions';
@@ -33,6 +34,7 @@ class App extends Component {
           <Route path='/gallery' component={() => <Gallery />} />
           <Route path='/info' component={Info} />
           <Route path='/wishlist' component={Basket} />
+          <Route path='/payment' component={Payment} />
         </Switch>
         <Footer />
       </Fragment>

@@ -6,6 +6,10 @@ import Comments from './CommentBlock';
 
 class Product extends Component {
 
+  onClick (sum) {
+    this.props.history.push({ pathname: '/payment', state: { sum } });
+  }
+
   render () {
     const { products, match: { params } } = this.props;
     const product = products.find(product => product.id === parseInt(params.number, 10));
@@ -25,6 +29,7 @@ class Product extends Component {
             <p>Стоимость: {product.price} руб.</p>
             <p>Маршрут: {product.road}</p>
             <p>Продолжительность: {product.duration} часов</p>
+            <button className="button-blue button-blue--comment" onClick={() => this.onClick(product.price)}>Купить</button>
           </Fragment>
         )}
         <h2>Комментарии:</h2>

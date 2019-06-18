@@ -46,6 +46,10 @@ class Main extends Component {
     })
   }
 
+  onClick (sum) {
+    this.props.history.push({ pathname: '/payment', state: { sum } });
+  }
+
   render () {
     const { isHiddenBlocks, isSorted, isSorting, category } = this.state;
     const { products } = this.props;
@@ -109,6 +113,7 @@ class Main extends Component {
                       )}
                     <Button id={product.id} />
                     </p>
+                    <button className="button-blue button-blue--comment" onClick={() => this.onClick(product.price)}>Купить</button>
                 </div>
               </div>
             </div>
