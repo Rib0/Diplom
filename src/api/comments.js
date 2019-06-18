@@ -1,5 +1,6 @@
 import { getComments, addComment, deleteComment, acceptComent } from '../actions';
 import { makeRequest } from 'utils';
+import { toggleToastAsync } from 'api/toast';
 
 const getCommentsUrl = 'http://localhost:8080/api/getComments.php';
 const addCommentUrl = 'http://localhost:8080/api/addComment.php';
@@ -17,15 +18,21 @@ export const getCommentsAsync = id => {
 
 export const addCommentAsync = data => {
   return dispatch => {
-    makeRequest('POST', addCommentUrl, data)
-      .then(id => dispatch(addComment({ ...data, id })))
-      .catch(err => console.log(err))
+    return makeRequest('POST', addCommentUrl, data)
+      .then(id => {
+        dispatch(addComment({ ...data, id: Number(id) }));
+        dispatch(toggleToastAsync('Комментарий успешно отправлен'));
+      })
+      .catch(err => {
+        dispatch(toggleToastAsync('Произошла ошибка, попробуйте позже...'))
+        console.log(err);
+      })
   }
 }
 
 export const deleteCommentAsync = id => {
   return dispatch => {
-    makeRequest('POST', deleteCommentUrl, id)
+    makeRequest('POST', deleteCommentUrl, { id })
       .then(() => dispatch(deleteComment(id)))
       .catch(err => console.log(err))
   }
@@ -33,7 +40,7 @@ export const deleteCommentAsync = id => {
 
 export const acceptComentAsync = id => {
   return dispatch => {
-    makeRequest('POST', moderateCommentUrl, id)
+    makeRequest('POST', moderateCommentUrl, { id })
       .then(() => dispatch(acceptComent(id)))
       .catch(err => console.log(err))
   }

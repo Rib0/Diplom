@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { registration } from 'api'
+import { connect } from 'react-redux';
 
-export default class PopUp extends Component {
+import { registration } from 'api/user';
+import { toggleToastAsync } from 'api/toast';
+
+class PopUp extends Component {
 
   state = {
     name: '',
@@ -24,27 +27,15 @@ export default class PopUp extends Component {
     e.preventDefault();
     const { name, email, password, repeatPass, tel } = this.state;
     if (repeatPass !== password) {
-      this.props.activeRegistrPopUp('Пароли должны совпадать', true);
+      this.props.toggleToast('Пароли должны совпадать');
       return;
-    }
+    };
     if (password.length < 5) {
-      this.props.activeRegistrPopUp('Пароль должен содержать не меньше пяти символов', true);
+      this.props.toggleToast('Пароль должен содержать не меньше пяти символов');
       return;
-    }
-
-    const data = { name, email, password, tel };
-    registration(data)
-      .then(resp => {
-        if (resp.error) {
-          this.props.activeRegistrPopUp('Пользователь с таким email уже существует', true);
-          return;
-        }
-        this.props.activeRegistrPopUp('Регистрация прошла успешно');
-      })
-      .catch(error => {
-        this.props.activeRegistrPopUp('Произошла ошибка, попробуйте еще раз...', true)
-        console.log(error);
-      })
+    };
+    this.props.registration({ name, email, password, tel });  
+    this.props.closeForm();
   }
 
   render () {
@@ -62,4 +53,11 @@ export default class PopUp extends Component {
       </form>
     )
   }
-} 
+}
+
+const mapDispatchToProps = dispatch => ({
+  toggleToast: text => dispatch(toggleToastAsync(text)),
+  registration: data => dispatch(registration(data))
+})
+
+export default connect(null, mapDispatchToProps)(PopUp);

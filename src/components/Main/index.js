@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import cx from 'classnames';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import Button from './faveButton';
 
-export default class Main extends Component {
+class Main extends Component {
 
   state = {
     isHiddenBlocks: true,
@@ -122,3 +124,9 @@ export default class Main extends Component {
     )
   }
 }
+
+const mapStateToProps = ({ products }) => ({
+  products
+});
+
+export default withRouter(connect(mapStateToProps)(Main));

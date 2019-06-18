@@ -7,8 +7,21 @@ const authUrl = 'http://localhost:8080/api/auth.php';
 
 export const registration = data => {
   return dispatch => {
+    console.log(data)
     makeRequest('POST', registrationUrl, data)
       .then(JSON.parse)
+      .then(resp => {
+        console.log(resp, data)
+        if (resp.error) {
+          dispatch(toggleToastAsync('Пользователь с таким email уже существует'));
+          return;
+        }
+        dispatch(toggleToastAsync('Регистрация прошла успешно'));
+      })
+      .catch(err => {
+        console.log(err);
+        dispatch(toggleToastAsync('Произошла ошибка, попробуйте еще раз...'))
+      })
   }
 }
 

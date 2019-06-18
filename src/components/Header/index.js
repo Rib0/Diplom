@@ -75,7 +75,7 @@ class Header extends Component {
         <div className="container">
           {activeForm && (
             <Fragment>
-              <Registration activeRegistrPopUp={this.activeRegistrPopUp}/> 
+              <Registration closeForm={() => this.setState({ activeForm: false, activeModal: false })}/> 
               <div onClick={this.toggleForm} className='shadowField' />
             </Fragment>
           )}

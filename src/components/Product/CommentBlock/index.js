@@ -1,28 +1,25 @@
 import React, { Component, Fragment } from 'react';
-import { addComment, getComments, moderateComment, deleteComment } from 'api';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+import { getCommentsAsync, addCommentAsync, deleteCommentAsync, acceptComentAsync } from 'api/comments';
+import { toggleToastAsync } from 'api/toast';
 
 const OPTIONS = {
   hour: 'numeric',
   minute: 'numeric',
 }
 
-export default class Comments extends Component {
+class Comments extends Component {
 
   state = {
-    text: '',
-    comments: []
+    text: ''
   }
 
   componentDidMount () {
-    const { productId } = this.props;
-    getComments({ productId })
-      .then(comments => {
-        this.setState({ comments });
-      })
-      .catch(error => {
-        console.log(error);
-        this.setState({ comments: [] });
-      })
+    const { match: { params } } = this.props;
+    const productId = Number(params.number);
+    this.props.getComments({ productId });
   }
 
   onChange = e => {
@@ -32,58 +29,32 @@ export default class Comments extends Component {
   }
 
   addComment = () => {
-    if (!this.state.text.trim()) return;
-    const { name, productId } = this.props;
-    const { text, comments } = this.state;
+    const { text } = this.state;
+    if (!text.trim()) {
+      this.props.toggleToast('Введите текст комментария');
+      return;
+    };
+    const { match: { params }, user: { name } } = this.props;
     const date = new Date().toLocaleDateString('ru', OPTIONS);
+    const productId = parseInt(params.number, 10);
+    
     const data = { name, date, text, productId };
-    addComment(data)
-    .then(id => {
-      this.setState({
-        text: '',
-        comments: [...comments, { ...data, id }]
-      })
-    })
-    .catch(error => {
-      console.log(error);
-      this.setState({ text: '' });
-    })
-  }
-
-  acceptComment = id => {
-    const { comments } = this.state;
-    moderateComment({ id })
-      .then(() => {
-        this.setState({
-          comments: comments.map(comment => comment.id === id ? { ...comment, moderated: 1 } : comment)
-        })
-      })
-      .catch(error => {
-        console.log(error);
+    this.props.addComment(data)
+      .then(() => this.setState({ text: '' }))
+      .catch(err => {
+        this.setState({ text: '' });
+        console.log(err);
       })
   }
-
-  deleteComment = id => {
-    deleteComment({ id })
-      .then(() => {
-        this.setState({
-          comments: this.state.comments.filter(comment => comment.id !== id)
-        })
-      })
-      .catch(error => {
-        console.log(error);
-      })
-  }
-
+  
   render () {
-    const { comments } = this.state;
-    const { isAdmin } = this.props;
+    const { user: { isadmin }, comments, acceptComment, deleteComment } = this.props;
 
     return (
       <Fragment>
         <ul>
           {comments.map(comment => {
-            if (!isAdmin && !comment.moderated) return;
+            if (!isadmin && !comment.moderated) return;
             return(
               <li className='comment' key={comment.id}>
                 <p>
@@ -91,8 +62,8 @@ export default class Comments extends Component {
                   {comment.date}
                   {!comment.moderated && (
                     <Fragment>
-                      <button onClick={() => this.acceptComment(comment.id)} className='comment-action'>Принять</button>
-                      <button onClick={() => this.deleteComment(comment.id)} className='comment-action'>Удалить</button>
+                      <button onClick={() => acceptComment(comment.id)} className='comment-action'>Принять</button>
+                      <button onClick={() => deleteComment(comment.id)} className='comment-action'>Удалить</button>
                     </Fragment>
                   )}
                 </p>
@@ -107,3 +78,18 @@ export default class Comments extends Component {
     )
   }
 }
+
+const mapStateToProps = ({ user, comments }) => ({
+  comments,
+  user: !user ? { name: 'Анонимно', isadmin: false } : user
+})
+
+const mapDispatchToProps = dispatch => ({
+  getComments: id => dispatch(getCommentsAsync(id)),
+  addComment: data => dispatch(addCommentAsync(data)),
+  deleteComment: id => dispatch(deleteCommentAsync(id)),
+  acceptComment: id => dispatch(acceptComentAsync(id)),
+  toggleToast: text => dispatch(toggleToastAsync(text))
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Comments));

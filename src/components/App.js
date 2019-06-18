@@ -8,7 +8,6 @@ import About from './About';
 import Gallery from './Gallery';
 import Info from './Info';
 import Product from './Product';
-import HowToJoin from './HowToJoin'
 import Footer from './Footer';
 import Basket from './Basket';
 
@@ -24,26 +23,16 @@ class App extends Component {
   }
 
   render () {
-
     return (
       <Fragment>
         <Header />
         <Switch>
-          <Route exact path='/' render={props => (
-            <Main {...props} products={[]} />
-          )}/>
-          <Route path='/products/:number' render={props => (
-            <Product {...props} products={products} name={user.name || 'Анонимно'} isAdmin={user.isadmin} />
-          )}/>/>
-          <Route path='/about' component={About}/>
-          <Route path='/gallery' render={props => (
-            <Gallery {...props} products={products} />
-          )}/>
-          <Route path='/info' component={Info}/>
-          <Route path='/howtojoin' component={HowToJoin}/>
-          <Route path='/wishlist' render={props => (
-            <Basket {...props} products={products} />
-          )}/>
+          <Route exact path='/' component={Main} />
+          <Route path='/products/:number' component={Product} />
+          <Route path='/about' component={About} />
+          <Route path='/gallery' component={() => <Gallery />} />
+          <Route path='/info' component={Info} />
+          <Route path='/wishlist' component={Basket} />
         </Switch>
         <Footer />
       </Fragment>

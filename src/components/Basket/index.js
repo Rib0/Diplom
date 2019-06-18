@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { isInWishlist } from '../../utils';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { isInWishlist } from '../../utils';
 
 export default class Basket extends Component {
 
