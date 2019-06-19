@@ -23,7 +23,7 @@ export const registration = data => {
   }
 }
 
-export const loginIn = data => {
+export const loginIn = (data, forAdmin = false) => {
   return dispatch => {
     if (!data.login || !data.password) {
       dispatch(toggleToastAsync('Заполните все данные'));
@@ -35,6 +35,12 @@ export const loginIn = data => {
         if (resp.error) {
           dispatch(toggleToastAsync('Неверный логин или пароль'));
           return;
+        }
+        if(forAdmin) {
+          if (!resp.isadmin) {
+            dispatch(toggleToastAsync('Неверный логин или пароль'));
+            return;
+          }
         }
         dispatch(logIn(resp));
         authorize(resp);

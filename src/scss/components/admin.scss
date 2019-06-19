@@ -1,0 +1,78 @@
+@include block('form') {
+  width: 200px;
+  margin: 200px auto;
+  text-align: center;
+
+  @include element('field') {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 5px;
+  }
+
+  @include element('submit') {
+    width: 100px;
+    padding: 5px;
+  }
+}
+
+@include block('admin') {
+
+  @include element('container') {
+    margin: 0 auto;
+    padding-top: 5px;
+  }
+
+  @include element('add-form') {
+    padding-left: 10px;
+    margin-bottom: 10px;
+
+    textarea {
+      height: 50px;
+      margin-bottom: 5px;
+    }
+
+    input {
+      height: 30px;
+      margin-bottom: 5px;
+    }
+
+    select {
+      margin-bottom: 5px;
+    }
+  }
+
+  @include element('navigation') {
+    display: flex;
+    background: black;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  @include element('item') {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: color .5s;
+    border-right: 1px solid white;
+
+    &:hover {
+      color: gray;
+    }
+  }
+
+  @include element('content') {
+    border-collapse: collapse;
+    max-width: 100%;
+
+    td, th {
+      border: 1px solid black;
+      padding: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      textarea {
+        height: 50px;
+      }
+    }
+  }
+}

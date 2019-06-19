@@ -65,11 +65,6 @@ class Header extends Component {
       'active': activeModal
     })
 
-    const succesRegistration = cx({
-      'success-registration': true,
-      'success-registration--active': !!toast
-    })
-
     return (
       <header className="header">
         <div className="container">
@@ -79,9 +74,6 @@ class Header extends Component {
               <div onClick={this.toggleForm} className='shadowField' />
             </Fragment>
           )}
-          <div className={succesRegistration}>
-            {toast}
-          </div>
           <ul className="settings">
             <li>
               <Link to='/wishlist'>
