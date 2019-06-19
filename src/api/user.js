@@ -36,11 +36,9 @@ export const loginIn = (data, forAdmin = false) => {
           dispatch(toggleToastAsync('Неверный логин или пароль'));
           return;
         }
-        if(forAdmin) {
-          if (!resp.isadmin) {
-            dispatch(toggleToastAsync('Неверный логин или пароль'));
-            return;
-          }
+        if(forAdmin && !resp.isadmin) {
+          dispatch(toggleToastAsync('Неверный логин или пароль'));
+          return;
         }
         dispatch(logIn(resp));
         authorize(resp);
