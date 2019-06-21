@@ -1,5 +1,6 @@
 // products action creators
 export const getProducts = data => ({ type: 'GET_PRODUCTS', payload: data });
+export const addProduct = data => ({ type: 'ADD_PRODUCT', payload: data });
 
 // comments action creators
 export const getComments = data => ({ type: 'GET_COMMENTS', payload: data });

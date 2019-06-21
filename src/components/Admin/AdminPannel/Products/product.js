@@ -16,22 +16,27 @@ class Product extends Component {
 
     return (
       <tr>
-        {Object.entries(this.props).map(([item, value], index) => (
+        {Object.entries(this.state).map(([item, value], index) => (
           <td key={index}>
-            {(/id|img/).test(item) ? 
-            value :
+            {(/id/).test(item) ? 
+              value :
+            (/img/).test(item) ? 
+              <div>
+                {value}
+                <input type='file' name='img' />
+              </div> :
             item === 'category' ?
-            <select name='category' value={this.state[item]} onChange={this.onChange}>
-              <option value='0'>
-                Без категории
-              </option>
-              <option value='1'>
-                Со скидкой
-              </option>
-              <option value='2'>
-                Все включено
-              </option>
-            </select> :
+              <select name='category' value={this.state[item]} onChange={this.onChange}>
+                <option value='0'>
+                  Без категории
+                </option>
+                <option value='1'>
+                  Со скидкой
+                </option>
+                <option value='2'>
+                  Все включено
+                </option>
+              </select> :
             <textarea value={this.state[item]} name={item} onChange={this.onChange} />}
           </td>
         ))}

@@ -37,7 +37,8 @@ class Auth extends Component {
           onChange={this.onChange}
           value={login} 
         />
-        <input 
+        <input
+          type='password'
           placeholder='Пароль' 
           className='form__field' 
           name='password'

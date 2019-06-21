@@ -25,9 +25,7 @@ class Main extends Component {
     const { isSorted, isSorting } = this.state;
     if (isSorting) return;
     this.setState(
-      () => ({
-        isSorting: true
-      }),
+      { isSorting: true },
       () => (
         setTimeout(() => {
           this.setState({
@@ -42,7 +40,7 @@ class Main extends Component {
   changeCategory = e => {
     const { dataset: { category } } = e.target;
     this.setState({
-      category: parseInt(category, 10)
+      category: Number(category)
     })
   }
 

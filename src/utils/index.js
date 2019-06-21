@@ -5,7 +5,7 @@ const generateData = object => {
   return formData;
 }
 
-export const makeRequest =  (url, method, data) => {
+export const makeRequest =  (url, method, data, generated = false) => {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     const newData = data ? generateData(data) : null;
@@ -22,7 +22,7 @@ export const makeRequest =  (url, method, data) => {
       })
     };
 
-    xhr.send(newData);
+    xhr.send(generated ? data : newData);
   })
 }
 
