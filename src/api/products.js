@@ -1,10 +1,11 @@
-import { getProducts } from '../actions';
+import { getProducts, addProduct, deleteProduct, redactProduct } from '../actions';
 import { makeRequest } from 'utils';
 import { toggleToastAsync } from './toast';
-import { addProduct } from '../actions';
 
 const getProductsUrl = 'http://localhost:8080/api/getProducts.php';
 const addProductUrl = 'http://localhost:8080/api/addProduct.php';
+const deleteProductUrl = 'http://localhost:8080/api/deleteProduct.php';
+const redactProductUrl = 'http://localhost:8080/api/redactProduct.php';
 
 export const getProductsAsync = () => {
   return dispatch => {
@@ -23,5 +24,21 @@ export const addProductAsync = (data, insertData) => {
         dispatch(toggleToastAsync('Произошла ошибка...'));
         console.log(err);
       })
+  }
+}
+
+export const deleteProductAsync = id => {
+  return dispatch => {
+    makeRequest('POST', deleteProductUrl, { id })
+      .then(() => dispatch(deleteProduct(id)))
+      .catch(err => console.log(err))
+  }
+}
+
+export const redactProductAsync = data => {
+  return dispatch => {
+    makeRequest('POST', redactProductUrl, data)
+      .then(() => dispatch(redactProduct(data)))
+      .catch(err => console.log(err))
   }
 }

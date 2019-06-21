@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Products from './Products';
+import Users from './Users';
+import { loginOut } from '../../../api/user';
 
 const COMPONENTS = [
   {
@@ -9,13 +11,8 @@ const COMPONENTS = [
     component: <Products />
   },
   {
-    name: 'О компании'
-  },
-  {
-    name: 'Информация'
-  },
-  {
-    name: 'Пользователи'
+    name: 'Пользователи',
+    component: <Users />
   }
 ]
 
@@ -42,6 +39,7 @@ class AdminPannel extends Component {
               {component.name}
             </li>
           ))}
+          <li className='admin__item' onClick={this.props.loginOut}>Выход</li>
         </ul>
         {COMPONENTS[currentPage].component}
       </div>
@@ -49,5 +47,9 @@ class AdminPannel extends Component {
   }
 }
 
-export default connect(null, null)(AdminPannel);
+const mapDispatchToProps = dispatch => ({
+  loginOut: () => dispatch(loginOut())
+})
+
+export default connect(null, mapDispatchToProps)(AdminPannel);
 

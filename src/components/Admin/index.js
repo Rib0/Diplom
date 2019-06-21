@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Auth from './auth';
-import AdminPannel from './AdminPannel/index.js';
+import AdminPannel from './AdminPannel';
 
 class Admin extends Component {
 

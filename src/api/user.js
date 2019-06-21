@@ -4,6 +4,7 @@ import { makeRequest, authorize } from 'utils';
 
 const registrationUrl = 'http://localhost:8080/api/registration.php';
 const authUrl = 'http://localhost:8080/api/auth.php';
+const getUsersUrl = 'http://localhost:8080/api/getUsers.php';
 
 export const registration = data => {
   return dispatch => {
@@ -52,5 +53,11 @@ export const loginOut = () => {
     dispatch(logOut());
     authorize(null);
   }
+}
+
+export const getUsers = () => {
+  return makeRequest('GET', getUsersUrl)
+    .then(JSON.parse)
+    .catch(err => console.log(err))
 }
 

@@ -93,10 +93,8 @@ class Products extends Component {
             />
           </div>
           <div>
-            <input 
-              type='number' 
+            <textarea 
               placeholder='Продолжительность'
-              min='0' 
               onChange={this.onChange} 
               name='duration' 
               value={duration}
