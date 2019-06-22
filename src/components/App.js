@@ -10,7 +10,7 @@ import Gallery from './Gallery';
 import Info from './Info';
 import Product from './Product';
 import Footer from './Footer';
-import Basket from './Basket';
+import WishList from './WishList';
 import Payment from './Payment';
 import Admin from './Admin';
 
@@ -55,7 +55,7 @@ class App extends Component {
           <Route path='/about' component={About} />
           <Route path='/gallery' component={() => <Gallery />} />
           <Route path='/info' component={Info} />
-          <Route path='/wishlist' component={Basket} />
+          <Route path='/wishlist' component={WishList} />
           <Route path='/payment' component={Payment} />
         </Switch>
         <Footer />

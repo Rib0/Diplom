@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { isInWishlist } from '../../utils';
 
-class Basket extends Component {
+class WishList extends Component {
 
   render () {
     const { products } = this.props;
@@ -54,4 +54,4 @@ const mapStateToProps = ({ products }) => ({
   products
 })
 
-export default withRouter(connect(mapStateToProps)(Basket));
+export default withRouter(connect(mapStateToProps)(WishList));

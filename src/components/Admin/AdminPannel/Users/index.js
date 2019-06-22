@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { getUsers } from '../../../../api/user';
 
 const THEADS = [
@@ -8,7 +8,7 @@ const THEADS = [
   'tel'
 ]
 
-export default class User extends Component {
+export default class User extends PureComponent {
 
   state = {
     user: '',
@@ -46,7 +46,6 @@ export default class User extends Component {
           </tbody>
         </table>
       </Fragment>
-
     )
   }
 }

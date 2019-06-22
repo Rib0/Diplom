@@ -35,6 +35,8 @@ class Header extends Component {
 
   toggleForm = () => this.setState({ activeForm: !this.state.activeForm });
 
+  closeForm = () => this.setState({ activeForm: false, activeModal: false });
+
   auth = () => {
     const { login, password } = this.state;    
     this.props.loginIn({ login, password });
@@ -70,7 +72,7 @@ class Header extends Component {
         <div className="container">
           {activeForm && (
             <Fragment>
-              <Registration closeForm={() => this.setState({ activeForm: false, activeModal: false })}/> 
+              <Registration closeForm={this.closeForm}/> 
               <div onClick={this.toggleForm} className='shadowField' />
             </Fragment>
           )}

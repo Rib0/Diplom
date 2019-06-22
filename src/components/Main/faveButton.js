@@ -12,9 +12,7 @@ export default class faveButton extends PureComponent {
   onClick = () => {
     const { id } = this.props;
     addToFave(id);
-    this.setState(prevState => ({
-      active: !prevState.active
-    }))
+    this.setState({ active: !this.state.active });
   }
 
   render () {
