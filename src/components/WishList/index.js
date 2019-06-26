@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { isInWishlist } from '../../utils';
@@ -54,4 +54,4 @@ const mapStateToProps = ({ products }) => ({
   products
 })
 
-export default withRouter(connect(mapStateToProps)(WishList));
+export default connect(mapStateToProps)(WishList);

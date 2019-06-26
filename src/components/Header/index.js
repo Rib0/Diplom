@@ -54,7 +54,7 @@ class Header extends Component {
 
   render () {
     const { activeModal, activeForm, login, password } = this.state;
-    const { location: { pathname }, toast, user } = this.props;
+    const { location: { pathname }, user } = this.props;
     document.body.style.overflow = activeForm ? 'hidden' : 'auto';
 
     const modalAuthClassName = cx({
