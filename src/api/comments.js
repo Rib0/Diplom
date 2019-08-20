@@ -12,9 +12,9 @@ export const getCommentsAsync = id => {
     makeRequest('POST', getCommentsUrl, id)
       .then(JSON.parse)
       .then(data => dispatch(getComments(data)))
-      .catch(err => console.log(err))
-  }
-}
+      .catch(err => console.log(err));
+  };
+};
 
 export const addCommentAsync = data => {
   return dispatch => {
@@ -24,24 +24,24 @@ export const addCommentAsync = data => {
         dispatch(toggleToastAsync('Комментарий успешно отправлен'));
       })
       .catch(err => {
-        dispatch(toggleToastAsync('Произошла ошибка, попробуйте позже...'))
+        dispatch(toggleToastAsync('Произошла ошибка, попробуйте позже...'));
         console.log(err);
-      })
-  }
-}
+      });
+  };
+};
 
 export const deleteCommentAsync = id => {
   return dispatch => {
     makeRequest('POST', deleteCommentUrl, { id })
       .then(() => dispatch(deleteComment(id)))
-      .catch(err => console.log(err))
-  }
-}
+      .catch(err => console.log(err));
+  };
+};
 
 export const acceptComentAsync = id => {
   return dispatch => {
     makeRequest('POST', moderateCommentUrl, { id })
       .then(() => dispatch(acceptComent(id)))
-      .catch(err => console.log(err))
-  }
-}
+      .catch(err => console.log(err));
+  };
+};

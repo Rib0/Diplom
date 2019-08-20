@@ -2,8 +2,7 @@ import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 
 export default class Footer extends PureComponent {
-
-  render () {
+  render() {
     return (
       <footer className="footer">
         <div className="container footer__inner">
@@ -12,7 +11,7 @@ export default class Footer extends PureComponent {
               <a href="#">Вход для партнеров</a>
             </li>
             <li>
-              <Link to='/about'>О компании</Link>
+              <Link to="/about">О компании</Link>
             </li>
             <li>
               <a href="#">Контакты</a>
@@ -22,7 +21,7 @@ export default class Footer extends PureComponent {
             <li className="footer-contacts__item">
               <a className="footer-contacts__link" href="#">
                 <img src="assets/images/vk@1X.png" alt="vk" />
-              </a>        
+              </a>
             </li>
             <li className="footer-contacts__item">
               <a className="footer-contacts__link" href="#">
@@ -48,7 +47,7 @@ export default class Footer extends PureComponent {
             <li>© 2019 OOO «Городские Круизы»</li>
           </ul>
         </div>
-    </footer>
-    )
+      </footer>
+    );
   }
 }

@@ -9,4 +9,4 @@ export default combineReducers({
   comments,
   user,
   toast,
-})
+});

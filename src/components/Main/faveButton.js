@@ -4,26 +4,23 @@ import SvgIcon from '../../../dist/assets/images/fave.svg';
 import cx from 'classnames';
 
 export default class faveButton extends PureComponent {
-
   state = {
-    active: isInWishlist(this.props.id)
-  }
+    active: isInWishlist(this.props.id),
+  };
 
   onClick = () => {
     const { id } = this.props;
     addToFave(id);
     this.setState({ active: !this.state.active });
-  }
+  };
 
-  render () {
+  render() {
     const { active } = this.state;
     const buttonClassName = cx({
       fave: true,
-      'fave--active': active
-    })
+      'fave--active': active,
+    });
 
-    return (
-      <SvgIcon className={buttonClassName} onClick={this.onClick}/>
-    )
+    return <SvgIcon className={buttonClassName} onClick={this.onClick} />;
   }
-} 
+}

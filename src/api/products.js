@@ -12,33 +12,33 @@ export const getProductsAsync = () => {
     makeRequest('GET', getProductsUrl)
       .then(JSON.parse)
       .then(data => dispatch(getProducts(data)))
-      .catch(err => console.log(err))
-  }
-}
+      .catch(err => console.log(err));
+  };
+};
 
 export const addProductAsync = (data, insertData) => {
   return dispatch => {
     return makeRequest('POST', addProductUrl, data, true)
-      .then(id => dispatch(addProduct({ id, ...insertData })))        
+      .then(id => dispatch(addProduct({ id, ...insertData })))
       .catch(err => {
         dispatch(toggleToastAsync('Произошла ошибка...'));
         console.log(err);
-      })
-  }
-}
+      });
+  };
+};
 
 export const deleteProductAsync = id => {
   return dispatch => {
     makeRequest('POST', deleteProductUrl, { id })
       .then(() => dispatch(deleteProduct(id)))
-      .catch(err => console.log(err))
-  }
-}
+      .catch(err => console.log(err));
+  };
+};
 
 export const redactProductAsync = data => {
   return dispatch => {
     makeRequest('POST', redactProductUrl, data)
       .then(() => dispatch(redactProduct(data)))
-      .catch(err => console.log(err))
-  }
-}
+      .catch(err => console.log(err));
+  };
+};

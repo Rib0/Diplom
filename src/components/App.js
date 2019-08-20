@@ -19,58 +19,58 @@ import { logIn } from 'actions';
 import { isAuth } from 'utils';
 
 class App extends Component {
-
-  componentDidMount () {
+  componentDidMount() {
     this.props.getProducts();
     this.props.logIn(isAuth());
   }
 
-  render () {
+  render() {
     const { toast } = this.props;
 
     const succesRegistration = cx({
       'success-registration': true,
-      'success-registration--active': !!toast
-    })
+      'success-registration--active': !!toast,
+    });
 
     if (this.props.location.pathname === '/admin')
       return (
         <Fragment>
-          <div className={succesRegistration}>
-            {toast}
-          </div>
+          <div className={succesRegistration}>{toast}</div>
           <Admin />
         </Fragment>
-      )
+      );
 
     return (
       <Fragment>
-        <div className={succesRegistration}>
-          {toast}
-        </div>
+        <div className={succesRegistration}>{toast}</div>
         <Header />
         <Switch>
-          <Route exact path='/' component={Main} />
-          <Route path='/products/:number' component={Product} />
-          <Route path='/about' component={About} />
-          <Route path='/gallery' component={() => <Gallery />} />
-          <Route path='/info' component={Info} />
-          <Route path='/wishlist' component={WishList} />
-          <Route path='/payment' component={Payment} />
+          <Route exact path="/" component={Main} />
+          <Route path="/products/:number" component={Product} />
+          <Route path="/about" component={About} />
+          <Route path="/gallery" component={() => <Gallery />} />
+          <Route path="/info" component={Info} />
+          <Route path="/wishlist" component={WishList} />
+          <Route path="/payment" component={Payment} />
         </Switch>
         <Footer />
       </Fragment>
-    )
+    );
   }
 }
 
 const mapStateToProps = ({ toast }) => ({
-  toast
-})
+  toast,
+});
 
 const mapDispatchToProps = dispatch => ({
   getProducts: () => dispatch(getProductsAsync()),
-  logIn: data => dispatch(logIn(data))
-})
+  logIn: data => dispatch(logIn(data)),
+});
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+);

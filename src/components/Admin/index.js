@@ -5,20 +5,15 @@ import Auth from './auth';
 import AdminPannel from './AdminPannel';
 
 class Admin extends Component {
-
-  render () {
+  render() {
     const { user } = this.props;
 
-    return (
-      !user || !user.isadmin ? 
-      <Auth /> :
-      <AdminPannel />
-    )
+    return !user || !user.isadmin ? <Auth /> : <AdminPannel />;
   }
 }
 
 const mapStateToProps = ({ user }) => ({
-  user
-})
+  user,
+});
 
 export default connect(mapStateToProps)(Admin);

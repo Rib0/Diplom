@@ -13,7 +13,7 @@ import rootReducer from './reducers';
 
 const history = createBrowserHistory();
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
-history.listen(() => window.scrollTo(0, 0))
+history.listen(() => window.scrollTo(0, 0));
 
 render(
   <Provider store={store}>
@@ -21,5 +21,5 @@ render(
       <App />
     </Router>
   </Provider>,
-  document.getElementById('app'),
-)
+  document.getElementById('app')
+);

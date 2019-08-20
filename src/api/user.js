@@ -19,10 +19,10 @@ export const registration = data => {
       })
       .catch(err => {
         console.log(err);
-        dispatch(toggleToastAsync('Произошла ошибка, попробуйте еще раз...'))
-      })
-  }
-}
+        dispatch(toggleToastAsync('Произошла ошибка, попробуйте еще раз...'));
+      });
+  };
+};
 
 export const loginIn = (data, forAdmin = false) => {
   return dispatch => {
@@ -37,27 +37,26 @@ export const loginIn = (data, forAdmin = false) => {
           dispatch(toggleToastAsync('Неверный логин или пароль'));
           return;
         }
-        if(forAdmin && !resp.isadmin) {
+        if (forAdmin && !resp.isadmin) {
           dispatch(toggleToastAsync('Неверный логин или пароль'));
           return;
         }
         dispatch(logIn(resp));
         authorize(resp);
       })
-      .catch(err => console.log(err))
-  }
-}
+      .catch(err => console.log(err));
+  };
+};
 
 export const loginOut = () => {
   return dispatch => {
     dispatch(logOut());
     authorize(null);
-  }
-}
+  };
+};
 
 export const getUsers = () => {
   return makeRequest('GET', getUsersUrl)
     .then(JSON.parse)
-    .catch(err => console.log(err))
-}
-
+    .catch(err => console.log(err));
+};
