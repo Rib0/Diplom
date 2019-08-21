@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -66,7 +66,7 @@ class Comments extends Component {
     } = this.props;
 
     return (
-      <Fragment>
+      <>
         <ul>
           {comments.map(comment => {
             if (!isadmin && !comment.moderated) return;
@@ -76,14 +76,14 @@ class Comments extends Component {
                   <span className="comment-name">{comment.name}</span>
                   {comment.date}
                   {!comment.moderated && (
-                    <Fragment>
+                    <>
                       <button onClick={() => acceptComment(comment.id)} className="comment-action">
                         Принять
                       </button>
                       <button onClick={() => deleteComment(comment.id)} className="comment-action">
                         Удалить
                       </button>
-                    </Fragment>
+                    </>
                   )}
                 </p>
                 <p
@@ -106,7 +106,7 @@ class Comments extends Component {
         <button onClick={this.addComment} className="button-blue--comment">
           Отправить
         </button>
-      </Fragment>
+      </>
     );
   }
 }

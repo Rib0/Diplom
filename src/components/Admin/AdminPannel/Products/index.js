@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Product from './product';
@@ -69,7 +69,7 @@ class Products extends Component {
     const { name, road, duration, price, old_price } = this.state;
 
     return (
-      <Fragment>
+      <>
         <form className="admin__add-form" ref={elem => (this.form = elem)} onSubmit={this.onSubmit}>
           <div>
             <input
@@ -138,7 +138,7 @@ class Products extends Component {
             ))}
           </tbody>
         </table>
-      </Fragment>
+      </>
     );
   }
 }

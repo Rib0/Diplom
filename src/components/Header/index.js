@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 
@@ -73,10 +73,10 @@ class Header extends Component {
       <header className="header">
         <div className="container">
           {activeForm && (
-            <Fragment>
+            <>
               <Registration closeForm={this.closeForm} />
               <div onClick={this.toggleForm} className="shadowField" />
-            </Fragment>
+            </>
           )}
           <ul className="settings">
             <li>
@@ -87,7 +87,7 @@ class Header extends Component {
             <li className="settings__item" onClick={this.onClick}>
               <div className={modalAuthClassName}>
                 {!user && (
-                  <Fragment>
+                  <>
                     <input
                       type="text"
                       name="login"
@@ -102,7 +102,7 @@ class Header extends Component {
                       onChange={this.onChange}
                       placeholder="Пароль"
                     />
-                  </Fragment>
+                  </>
                 )}
                 <div className="modal-auth__actions">
                   <button
@@ -164,12 +164,12 @@ class Header extends Component {
             <p className="header__slogan--large">По черному морю</p>
           </div>
           {pathname === '/' && (
-            <Fragment>
+            <>
               <Button />
               <div className="header__figure">
                 <img src="assets/images/Фигура 1@1X (1).png" alt="figure" />
               </div>
-            </Fragment>
+            </>
           )}
         </div>
       </header>

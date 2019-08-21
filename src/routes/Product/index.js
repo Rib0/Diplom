@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -23,7 +23,7 @@ class Product extends Component {
           Вернуться к каталогу
         </Link>
         {product && (
-          <Fragment>
+          <>
             <h2 className="text-center">{product.name}</h2>
             <div className="product-image-container">
               <img src={`assets/images/${product.img}`} />
@@ -37,7 +37,7 @@ class Product extends Component {
             >
               Купить
             </button>
-          </Fragment>
+          </>
         )}
         <h2>Комментарии:</h2>
         <p className="comment-decription">

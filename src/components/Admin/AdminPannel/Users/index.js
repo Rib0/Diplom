@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import { getUsers } from '../../../../api/user';
 
 const THEADS = ['id', 'name', 'email', 'tel'];
@@ -19,7 +19,7 @@ export default class User extends PureComponent {
     const { user, users } = this.state;
 
     return (
-      <Fragment>
+      <>
         <input
           value={user}
           onChange={this.onChange}
@@ -47,7 +47,7 @@ export default class User extends PureComponent {
             )}
           </tbody>
         </table>
-      </Fragment>
+      </>
     );
   }
 }
