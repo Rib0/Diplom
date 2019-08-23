@@ -2,11 +2,10 @@
 
 @import 'base';
 
-//main components
 @import 'components/header';
-@import 'components/popUp.scss';
+@import 'components/popUp';
 @import 'components/main';
 @import 'components/gallery';
 @import 'components/product';
 @import 'components/footer';
-@import 'components/admin.scss';
+@import 'components/admin';

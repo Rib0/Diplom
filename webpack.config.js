@@ -1,12 +1,9 @@
 const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
-  entry: [
-    './src/index.js',
-    './src/scss/index.scss'
-  ],
+  entry: ['./src/index.js', './src/scss/index.scss'],
   output: {
     path: path.join(__dirname, '/dist'),
     filename: '[name].js',
@@ -15,7 +12,7 @@ const config = {
     overlay: true,
     historyApiFallback: true,
     port: 3000,
-    contentBase: path.join(__dirname, 'dist')
+    contentBase: path.join(__dirname, 'dist'),
   },
   module: {
     rules: [
@@ -35,20 +32,21 @@ const config = {
               localIdentName: '[local]___[hash:base64:5]', //to read about it
               // importLoaders: 2, // to read about it
               // url: false
-            }
+            },
           },
-          'sass-loader'
-        ]
+          require.resolve('postcss-loader'),
+          'sass-loader',
+        ],
       },
       {
         test: /\.(png|jpe?g|gif)$/,
         use: [
           {
             loader: 'file-loader',
-            options: { name: 'images/[name].[ext]' } 
+            options: { name: 'images/[name].[ext]' },
           },
         ],
-      },      
+      },
       {
         test: /\.svg$/,
         exclude: /node_modules/,
@@ -58,8 +56,8 @@ const config = {
             name: 'SvgIcon',
           },
         },
-      }
-    ]
+      },
+    ],
   },
   resolve: {
     extensions: ['.scss', '.js'],
@@ -76,9 +74,9 @@ const config = {
       inject: false, // помещает скрипт внуть body
       hash: true,
       template: './index.html', // на основе какого файла делать шаблон
-      filename: 'index.html'
-    })
-  ]
-}
+      filename: 'index.html',
+    }),
+  ],
+};
 
 module.exports = config;
