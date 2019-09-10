@@ -2,17 +2,27 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const isProd = process.env.NODE_ENV === 'production';
+
 const config = {
   entry: ['./src/index.js', './src/scss/index.scss'],
   output: {
-    path: path.join(__dirname, '/dist'),
+    path: path.resolve(__dirname, '/dist'),
     filename: '[name].js',
   },
   devServer: {
+    compress: true,
     overlay: true,
     historyApiFallback: true,
     port: 3000,
-    contentBase: path.join(__dirname, 'dist'),
+    hot: true,
+    lazy: true,
+    // open: true,
+    open: 'chrome',
+    proxy: {
+      '/api': 'http://localhost:8080'
+    },
+    contentBase: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
@@ -61,7 +71,7 @@ const config = {
   },
   resolve: {
     extensions: ['.scss', '.js'],
-    modules: ['node_modules', path.join(__dirname, 'src')],
+    modules: ['node_modules', path.resolve(__dirname, 'src')],
   },
   devtool: 'source-map',
   plugins: [
