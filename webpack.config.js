@@ -10,17 +10,17 @@ const config = {
     path: path.resolve(__dirname, '/dist'),
     filename: '[name].js',
   },
+  devtool: isProd && 'cheap-module-source-map',
   devServer: {
     compress: true,
     overlay: true,
-    historyApiFallback: true,
+    historyApiFallback: true, // necessary for spa, fallback on index.html if 404 error
     port: 3000,
     hot: true,
-    lazy: true,
     // open: true,
-    open: 'chrome',
+    open: 'chrome', // only for windows os
     proxy: {
-      '/api': 'http://localhost:8080'
+      '/api': 'http://localhost:8080' // useful if api should redirect to http://localhost:8080/api
     },
     contentBase: path.resolve(__dirname, 'dist'),
   },
@@ -72,6 +72,13 @@ const config = {
   resolve: {
     extensions: ['.scss', '.js'],
     modules: ['node_modules', path.resolve(__dirname, 'src')],
+  },
+  state: {
+    builtAt: false,
+    children: false,
+    colors: true,
+    hash: false,
+    publicPath: false
   },
   devtool: 'source-map',
   plugins: [
