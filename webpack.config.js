@@ -17,7 +17,7 @@ const config = {
     historyApiFallback: true, // necessary for spa, fallback on index.html if 404 error
     port: 3000,
     hot: true,
-    // open: true,
+    // open: true, // devserver open default broswer
     open: 'chrome', // only for windows os
     proxy: {
       '/api': 'http://localhost:8080' // useful if api should redirect to http://localhost:8080/api
@@ -73,7 +73,7 @@ const config = {
     extensions: ['.scss', '.js'],
     modules: ['node_modules', path.resolve(__dirname, 'src')],
   },
-  state: {
+  stats: {
     builtAt: false,
     children: false,
     colors: true,
