@@ -1,6 +1,13 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+/*
+ install dotenv
+ install define plugin
+ install uglifyjsplugin
+ hash modules
+ learn loaders
+*/
 
 const isProd = process.env.NODE_ENV === 'production';
 
