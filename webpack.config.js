@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
  install dotenv
  install define plugin
  install uglifyjsplugin
+ install cleanwebpack plugin
  hash modules
  learn loaders
 */
