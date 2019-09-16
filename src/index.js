@@ -15,6 +15,8 @@ const history = createBrowserHistory();
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 history.listen(() => window.scrollTo(0, 0));
 
+console.log(process.env.NODE_ENV);
+
 render(
   <Provider store={store}>
     <Router history={history}>

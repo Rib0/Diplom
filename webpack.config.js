@@ -1,8 +1,9 @@
 const path = require('path');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 /*
- install dotenv
  install define plugin
  install uglifyjsplugin
  install cleanwebpack plugin
@@ -15,10 +16,10 @@ const isProd = process.env.NODE_ENV === 'production';
 const config = {
   entry: ['./src/index.js', './src/scss/index.scss'],
   output: {
-    path: path.resolve(__dirname, '/dist'),
+    path: path.resolve(__dirname, 'dist/'),
     filename: '[name].js',
   },
-  devtool: isProd && 'cheap-module-source-map',
+  devtool: isProd && 'cheap-module-source-map', // generate source map
   devServer: {
     compress: true,
     overlay: true,
@@ -30,7 +31,7 @@ const config = {
     proxy: {
       '/api': 'http://localhost:8080' // useful if api should redirect to http://localhost:8080/api
     },
-    contentBase: path.resolve(__dirname, 'dist'),
+    contentBase: path.resolve(__dirname, 'dist/'),
   },
   module: {
     rules: [
@@ -90,18 +91,26 @@ const config = {
   },
   devtool: 'source-map',
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
+      filename: '[name].[chunkhash].css',
       allChunks: true, // to read about it
       // chunkFilename: '[id].[hash].css', // to read about it
     }),
     new HtmlWebpackPlugin({
-      inject: false, // помещает скрипт внуть body
+      inject: false, // inject script at the bottom of the body
       hash: true,
-      template: './index.html', // на основе какого файла делать шаблон
-      filename: 'index.html',
+      cachge: true,
+      template: './index.html', // entry template
+      filename: 'index.html', // output template
     }),
   ],
 };
+
+if(!isProd) {
+  config.plugins.push(new webpack.HotModuleReplacementPlugin())
+}
 
 module.exports = config;
