@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <base href="/">
-    <link rel="stylesheet" href="main.css" type="text/css">
+    <link rel="stylesheet" href="<%= htmlWebpackPlugin.files.chunks.main.css[0] %>">
 </head>
 <body>
     <div id="app"></div>
-    <script async src="main.js"></script>
+    <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
 </body>
 </html>

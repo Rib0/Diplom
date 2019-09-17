@@ -79,30 +79,29 @@ const config = {
     ],
   },
   resolve: {
-    extensions: ['.scss', '.js'],
-    modules: ['node_modules', path.resolve(__dirname, 'src')],
+    extensions: ['.scss', '.js'], // allow not to specify extension of .scss and .js
+    modules: ['node_modules', path.resolve(__dirname, 'src')], // search for imported files in this directories
   },
   stats: {
     builtAt: false,
     children: false,
     colors: true,
     hash: false,
-    publicPath: false
+    publicPath: false // console stats info
   },
-  devtool: 'source-map',
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) // var is working in code in development and production mode
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].[chunkhash].css',
+      filename: '[name].css',
       allChunks: true, // to read about it
       // chunkFilename: '[id].[hash].css', // to read about it
     }),
     new HtmlWebpackPlugin({
       inject: false, // inject script at the bottom of the body
-      hash: true,
-      cachge: true,
+      // hash: true, // add hash to files for hash busting
+      cache: true,
       template: './index.html', // entry template
       filename: 'index.html', // output template
     }),
