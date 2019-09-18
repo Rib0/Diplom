@@ -1,5 +1,8 @@
 module.exports = {
   plugins: [
+    // css mixins can be installed
+    // bem postcss can be installed
+    // install destyle.css
     require('postcss-flexbugs-fixes'),
     require('cssnano')({
       preset: 'default',
