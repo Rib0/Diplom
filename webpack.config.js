@@ -2,11 +2,10 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 /*
- install define plugin
- install uglifyjsplugin
- install cleanwebpack plugin
  hash modules
  learn loaders
 */
@@ -17,7 +16,7 @@ const config = {
   entry: ['./src/index.js', './src/scss/index.scss'],
   output: {
     path: path.resolve(__dirname, 'dist/'),
-    filename: '[name].js',
+    filename: !isProd ? '[name].js' : '[name].[chunkhash].js',
   },
   devtool: isProd && 'cheap-module-source-map', // generate source map
   devServer: {
@@ -32,6 +31,19 @@ const config = {
       '/api': 'http://localhost:8080' // useful if api should redirect to http://localhost:8080/api
     },
     contentBase: path.resolve(__dirname, 'dist/'),
+  },
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        uglifyOptions: {
+          output: {
+            comments: false,
+          }
+        },
+      }),
+    ],
   },
   module: {
     rules: [
@@ -94,9 +106,7 @@ const config = {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) // var is working in code in development and production mode
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
-      allChunks: true, // to read about it
-      // chunkFilename: '[id].[hash].css', // to read about it
+      filename: !isProd ? '[name].css' : '[name].[chunkhash].css',
     }),
     new HtmlWebpackPlugin({
       inject: false, // inject script at the bottom of the body
@@ -105,11 +115,11 @@ const config = {
       template: './index.html', // entry template
       filename: 'index.html', // output template
     }),
-  ],
+    isProd && new CleanWebpackPlugin({
+      cleanStaleWebpackAssets: false,
+    }),
+    !isProd && new webpack.HotModuleReplacementPlugin()
+  ].filter(Boolean),
 };
-
-if(!isProd) {
-  config.plugins.push(new webpack.HotModuleReplacementPlugin())
-}
 
 module.exports = config;
