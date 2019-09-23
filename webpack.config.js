@@ -13,7 +13,12 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const isProd = process.env.NODE_ENV === 'production';
 
 const config = {
-  entry: ['./src/index.js', './src/scss/index.scss'],
+  entry: [
+    !isProd && 'webpack-dev-server/client',
+    !isProd && 'webpack/hot/dev-server',
+    './src/index.js',
+    './src/scss/index.scss',
+  ].filter(Boolean),
   output: {
     path: path.resolve(__dirname, 'dist/'),
     filename: !isProd ? '[name].js' : '[name].[chunkhash].js',
@@ -28,7 +33,7 @@ const config = {
     // open: true, // devserver open default broswer
     open: 'chrome', // only for windows os
     proxy: {
-      '/api': 'http://localhost:8080' // useful if api should redirect to http://localhost:8080/api
+      '/api': 'http://localhost:8080' // useful if api url should redirect to http://localhost:8080/api
     },
     contentBase: path.resolve(__dirname, 'dist/'),
   },
