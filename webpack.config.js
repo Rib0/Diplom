@@ -64,13 +64,13 @@ const config = {
           {
             loader: 'css-loader',
             options: {
-              // modules: true,
-              localIdentName: '[local]___[hash:base64:5]', //to read about it
-              // importLoaders: 2, // to read about it
-              // url: false
+              modules: {
+                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              },
+              importLoaders: 2, // applied postcss-loader and sass-loader before css-loader (applied 2 loaders for css styles)
             },
           },
-          require.resolve('postcss-loader'),
+          'postcss-loader',
           'sass-loader',
         ],
       },
