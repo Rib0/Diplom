@@ -4,24 +4,18 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-
-/*
- hash modules
- learn loaders
-*/
+const SvgStore = require('webpack-svgstore-plugin');
 
 const isProd = process.env.NODE_ENV === 'production';
 
 const config = {
   entry: [
-    !isProd && 'webpack-dev-server/client',
-    !isProd && 'webpack/hot/dev-server',
-    './src/index.js',
-    './src/scss/index.scss',
+    './src/javascript',
+    './src/scss'
   ].filter(Boolean),
   output: {
     path: path.resolve(__dirname, 'dist/'),
-    filename: !isProd ? '[name].js' : '[name].[chunkhash].js',
+    filename: !isProd ? '[name].js' : '[name].[contenthash].js',
   },
   devtool: isProd && 'cheap-module-source-map', // generate source map
   devServer: {
@@ -55,7 +49,7 @@ const config = {
       {
         test: /\.(js|jsx)$/,
         loader: 'babel-loader',
-        exclude: [/node_modules/],
+        exclude: /node_modules/,
       },
       {
         test: /\.(css|scss)$/,
@@ -64,9 +58,8 @@ const config = {
           {
             loader: 'css-loader',
             options: {
-              modules: {
-                localIdentName: '[path][name]__[local]--[hash:base64:5]',
-              },
+              modules: true,
+              localIdentName: '[path][name]__[local]--[hash:base64:5]',
               importLoaders: 2, // applied postcss-loader and sass-loader before css-loader (applied 2 loaders for css styles)
             },
           },
@@ -75,23 +68,11 @@ const config = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: { name: 'images/[name].[ext]' },
+          loader: 'file-loader',
+          exclude: /\.(js|css|scss|html)/,
+          options: { 
+              name: 'assets/images/[name].[ext]' 
           },
-        ],
-      },
-      {
-        test: /\.svg$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'svg-react-loader',
-          options: {
-            name: 'SvgIcon',
-          },
-        },
       },
     ],
   },
@@ -111,7 +92,7 @@ const config = {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) // var is working in code in development and production mode
     }),
     new MiniCssExtractPlugin({
-      filename: !isProd ? '[name].css' : '[name].[chunkhash].css',
+      filename: !isProd ? '[name].css' : '[name].[contenthash].css',
     }),
     new HtmlWebpackPlugin({
       inject: false, // inject script at the bottom of the body
@@ -123,7 +104,13 @@ const config = {
     isProd && new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false,
     }),
-    !isProd && new webpack.HotModuleReplacementPlugin()
+    new SvgStore({
+      svgoOptions: {
+        plugins: [
+          { removeTitle: true }
+        ]
+      },
+    })
   ].filter(Boolean),
 };
 

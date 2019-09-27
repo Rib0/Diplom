@@ -5,6 +5,9 @@ import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
+const __svg__ = { path: '../svg/*.svg', name: '[hash].logos.svg' };
+require('webpack-svgstore-plugin/src/helpers/svgxhr')(__svg__);
+
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 

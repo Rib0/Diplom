@@ -4,7 +4,7 @@
   "description": "diplom",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development webpack-dev-server --mode=development",
+    "dev": "NODE_ENV=development webpack-dev-server --mode=development --hot",
     "build": "NODE_ENV=production webpack --mode=production",
     "prettier": "prettier --write ./src/**/*.js"
   },
@@ -65,6 +65,7 @@
     "svg-react-loader": "^0.4.6",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.2.3",
-    "webpack-dev-server": "^3.3.1"
+    "webpack-dev-server": "^3.3.1",
+    "webpack-svgstore-plugin": "^4.1.0"
   }
 }
