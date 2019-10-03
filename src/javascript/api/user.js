@@ -1,6 +1,6 @@
-import { logIn, logOut } from '../actions';
+import { logIn, logOut } from 'javascript/actions';
 import { toggleToastAsync } from './toast';
-import { makeRequest, authorize } from 'utils';
+import { makeRequest, authorize } from 'javascript/utils';
 
 const registrationUrl = 'http://localhost:8080/api/registration.php';
 const authUrl = 'http://localhost:8080/api/auth.php';

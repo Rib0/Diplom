@@ -9,7 +9,7 @@ const Gallery = ({ products }) => {
         {products.map(product => (
           <div className="gallery-container" key={product.id}>
             <div className="gallery-block">
-              <img src={`../assets/images/${product.img}`} />
+              <img src={`/images/${product.img}`} />
             </div>
           </div>
         ))}

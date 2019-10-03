@@ -38,7 +38,7 @@ class WishList extends Component {
                   <td>{product.duration}</td>
                   <td>{product.price}</td>
                   <td>
-                    <img src={`assets/images/${product.img}`} />
+                    <img src={`/images/${product.img}`} />
                   </td>
                 </tr>
               ) : null

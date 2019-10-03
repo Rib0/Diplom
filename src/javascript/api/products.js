@@ -1,5 +1,5 @@
-import { getProducts, addProduct, deleteProduct, redactProduct } from '../actions';
-import { makeRequest } from 'utils';
+import { getProducts, addProduct, deleteProduct, redactProduct } from 'javascript/actions';
+import { makeRequest } from 'javascript/utils';
 import { toggleToastAsync } from './toast';
 
 const getProductsUrl = 'http://localhost:8080/api/getProducts.php';

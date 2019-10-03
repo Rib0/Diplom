@@ -4,8 +4,8 @@
   "description": "diplom",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development webpack-dev-server --mode=development --hot",
-    "build": "NODE_ENV=production webpack --mode=production",
+    "dev": "NODE_ENV='development' webpack-dev-server --mode=development",
+    "build": "NODE_ENV='production' webpack --mode=production",
     "prettier": "prettier --write ./src/**/*.js"
   },
   "author": "Nikita Vpr42",
@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^2.1.0",
     "cssnano": "^4.1.10",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",

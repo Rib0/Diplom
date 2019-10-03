@@ -1,4 +1,4 @@
-import { toggleToast } from 'actions';
+import { toggleToast } from 'javascript/actions';
 
 export const toggleToastAsync = data => {
   return (dispatch, getState) => {

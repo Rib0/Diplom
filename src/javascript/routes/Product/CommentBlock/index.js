@@ -7,8 +7,8 @@ import {
   addCommentAsync,
   deleteCommentAsync,
   acceptComentAsync,
-} from 'api/comments';
-import { toggleToastAsync } from 'api/toast';
+} from 'javascript/api/comments';
+import { toggleToastAsync } from 'javascript/api/toast';
 
 const OPTIONS = {
   hour: 'numeric',

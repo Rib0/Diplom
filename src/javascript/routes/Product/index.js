@@ -19,14 +19,14 @@ class Product extends Component {
     return (
       <main className="container container--content product">
         <Link className="link" to="/">
-          <img src="assets/images/back.png" />
+          <img src="/images/back.png" />
           Вернуться к каталогу
         </Link>
         {product && (
           <>
             <h2 className="text-center">{product.name}</h2>
             <div className="product-image-container">
-              <img src={`assets/images/${product.img}`} />
+              <img src={`/images/${product.img}`} />
             </div>
             <p>Стоимость: {product.price} руб.</p>
             <p>Маршрут: {product.road}</p>

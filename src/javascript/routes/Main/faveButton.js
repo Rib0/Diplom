@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { addToFave, isInWishlist } from '../../utils';
-import SvgIcon from '../../../dist/assets/images/fave.svg';
+import { addToFave, isInWishlist } from 'javascript/utils';
+import Svg from 'javascript/components/Svg';
 import cx from 'classnames';
 
 export default class faveButton extends PureComponent {
@@ -21,6 +21,6 @@ export default class faveButton extends PureComponent {
       'fave--active': active,
     });
 
-    return <SvgIcon className={buttonClassName} onClick={this.onClick} />;
+    return <Svg name={2} />;
   }
 }

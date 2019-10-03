@@ -9,6 +9,9 @@
 </head>
 <body>
     <div id="app"></div>
+    <script>
+        console.log(<%= JSON.stringify(htmlWebpackPlugin.files) %>)
+    </script>
     <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
 </body>
 </html>

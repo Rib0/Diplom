@@ -5,11 +5,11 @@ import cx from 'classnames';
 
 import Header from './Header';
 import Footer from './Footer';
-import routes from 'routes';
+import routes from 'javascript/routes';
 
-import { getProductsAsync } from 'api/products';
-import { logIn } from 'actions';
-import { isAuth } from 'utils';
+import { getProductsAsync } from 'javascript/api/products';
+import { logIn } from 'javascript/actions';
+import { isAuth } from 'javascript/utils';
 
 class App extends Component {
   componentDidMount() {

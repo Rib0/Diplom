@@ -5,8 +5,8 @@ import { withRouter, Link } from 'react-router-dom';
 import cx from 'classnames';
 import Button from './scrollButton';
 import Registration from './registration';
-import SvgIcon from '../../../dist/assets/images/fave.svg';
-import { loginIn, loginOut } from 'api/user';
+import Svg from 'javascript/components/Svg';
+import { loginIn, loginOut } from 'javascript/api/user';
 
 class Header extends Component {
   state = {
@@ -81,7 +81,7 @@ class Header extends Component {
           <ul className="settings">
             <li>
               <Link to="/wishlist">
-                <SvgIcon style={{ width: '50px', fill: 'black' }} />
+                <Svg style={{ width: '50px', fill: 'black' }} />
               </Link>
             </li>
             <li className="settings__item" onClick={this.onClick}>
@@ -119,11 +119,11 @@ class Header extends Component {
                   )}
                 </div>
               </div>
-              <img className="settings__user" src="assets/images/user@1X.png" alt="user" />
+              <img className="settings__user" src="/images/user@1X.png" alt="user" />
               {user ? user.email : 'Личный кабинет'}
               <img
                 className={chevronClassName}
-                src="assets/images/Многоугольник 1 копия 2@1X.png"
+                src="/images/Многоугольник 1 копия 2@1X.png"
                 alt="chevron"
               />
             </li>
@@ -157,7 +157,7 @@ class Header extends Component {
             </ul>
           </nav>
           <div className="header__logo">
-            <img src="assets/images/logo@1X.png" alt="logo" />
+            <img src="/images/logo@1X.png" alt="logo" />
           </div>
           <div>
             <p className="header__slogan">Морские прогулки</p>
@@ -167,7 +167,7 @@ class Header extends Component {
             <>
               <Button />
               <div className="header__figure">
-                <img src="assets/images/Фигура 1@1X (1).png" alt="figure" />
+                <img src="/images/Фигура 1@1X (1).png" alt="figure" />
               </div>
             </>
           )}

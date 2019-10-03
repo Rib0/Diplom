@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { registration } from 'api/user';
-import { toggleToastAsync } from 'api/toast';
+import { registration } from 'javascript/api/user';
+import { toggleToastAsync } from 'javascript/api/toast';
 
 class PopUp extends Component {
   state = {

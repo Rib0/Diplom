@@ -1,6 +1,6 @@
-import { getComments, addComment, deleteComment, acceptComent } from '../actions';
-import { makeRequest } from 'utils';
-import { toggleToastAsync } from 'api/toast';
+import { getComments, addComment, deleteComment, acceptComent } from 'javascript/actions';
+import { makeRequest } from 'javascript/utils';
+import { toggleToastAsync } from './toast';
 
 const getCommentsUrl = 'http://localhost:8080/api/getComments.php';
 const addCommentUrl = 'http://localhost:8080/api/addComment.php';

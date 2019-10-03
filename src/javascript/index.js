@@ -5,7 +5,11 @@ import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
-const __svg__ = { path: '../svg/*.svg', name: '[hash].logos.svg' };
+if (process.env.NODE_ENV === 'production') {
+  var __svg__ = { path: './src/svg/*.svg', name: '[hash].svg' };
+} else {
+  var __svg__ = { path: './src/svg/*.svg', name: 'fave.svg' };
+}
 require('webpack-svgstore-plugin/src/helpers/svgxhr')(__svg__);
 
 import thunk from 'redux-thunk';
