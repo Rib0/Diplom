@@ -81,7 +81,7 @@ class Header extends Component {
           <ul className="settings">
             <li>
               <Link to="/wishlist">
-                <Svg style={{ width: '50px', fill: 'black' }} />
+                <Svg iconName="fave" style={{ width: '50px', fill: 'black' }} />
               </Link>
             </li>
             <li className="settings__item" onClick={this.onClick}>
