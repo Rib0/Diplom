@@ -92,6 +92,8 @@ const config = {
   stats: {
     builtAt: false,
     children: false,
+    chunks: false,
+    chunkModules: false,
     colors: true,
     hash: false,
     publicPath: false // console stats info
@@ -110,6 +112,7 @@ const config = {
       filename: 'index.html', // output template
     }),
     !isProd && new webpack.HotModuleReplacementPlugin(),
+    new webpack.ProgressPlugin(),
     isProd && new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false,
     }),
