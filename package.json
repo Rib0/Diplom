@@ -4,8 +4,8 @@
   "description": "diplom",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV='development' webpack-dev-server --mode=development",
-    "build": "NODE_ENV='production' webpack --mode=production",
+    "dev": "set NODE_ENV='development' && webpack-dev-server --mode=development",
+    "build": "set NODE_ENV='production' && webpack --mode=production",
     "prettier": "prettier --write ./src/**/*.js"
   },
   "author": "Nikita Vpr42",

@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Svg = ({ className, iconName }) => (
-  <svg className={`svg-icon`}>
-    <use xlinkHref={`#fave`} />
+const Svg = ({ className, iconName, style }) => (
+  <svg className={`feather`}>
+    <use xlinkHref={`#icon-${iconName}`}></use>
   </svg>
 );
 

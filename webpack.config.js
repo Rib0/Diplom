@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const SvgStore = require('webpack-svgstore-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
@@ -10,6 +10,8 @@ const CopyPlugin = require('copy-webpack-plugin');
 /*
   make hot reload
   svg loader
+  remove useless dependenses in packaje.json
+  sort dependences
 */
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -39,14 +41,13 @@ const config = {
   },
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        uglifyOptions: {
+      new TerserPlugin({
+        terserOptions: {
           output: {
             comments: false,
           }
         },
+        extractComments: false,
       }),
     ],
   },
@@ -90,13 +91,12 @@ const config = {
     }
   },
   stats: {
-    builtAt: false,
-    children: false,
-    chunks: false,
-    chunkModules: false,
-    colors: true,
     hash: false,
-    publicPath: false // console stats info
+    version: false,
+    children: false,
+    modules: false,
+    warnings: false,
+    entrypoints: false,
   },
   plugins: [
     new webpack.DefinePlugin({
