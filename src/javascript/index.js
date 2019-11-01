@@ -29,3 +29,13 @@ render(
   </Provider>,
   document.getElementById('app')
 );
+
+const Error = Comp => props => {
+  return (
+    <div>
+      <Comp {...props} />
+    </div>
+  );
+};
+
+export default Error(App);

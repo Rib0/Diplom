@@ -87,7 +87,7 @@ const config = {
     extensions: ['.scss', '.js'], // allow not to specify extension of .scss and .js
     modules: ['node_modules', path.resolve(__dirname, 'src')], // search for imported files in this directories
     alias: {
-      images: path.resolve(__dirname, 'src/images/')
+      images: path.resolve(__dirname, 'src/images/') // short pathname
     }
   },
   stats: {

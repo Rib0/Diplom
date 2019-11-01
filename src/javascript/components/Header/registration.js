@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { registration } from 'javascript/api/user';
 import { toggleToastAsync } from 'javascript/api/toast';
+import withErrorBoundary from 'javascript/components/ErrorBoundary';
 
 class PopUp extends Component {
   state = {
@@ -93,7 +94,9 @@ const mapDispatchToProps = dispatch => ({
   registration: data => dispatch(registration(data)),
 });
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(PopUp);
+export default withErrorBoundary(
+  connect(
+    null,
+    mapDispatchToProps
+  )(PopUp)
+);
