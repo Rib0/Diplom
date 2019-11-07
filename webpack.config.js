@@ -12,6 +12,7 @@ const CopyPlugin = require('copy-webpack-plugin');
   svg loader
   remove useless dependenses in packaje.json
   sort dependences
+  INSTALL COMPOSE
 */
 
 const isProd = process.env.NODE_ENV === 'production';
